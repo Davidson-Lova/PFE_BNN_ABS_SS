@@ -20,5 +20,3 @@ In the [report](https://nbviewer.org/github/Davidson-Lova/PFE_BNN_ABS_SS/blob/ma
 In this [file](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/my_bnn_cos.ipynb), an attempt at reproducing the noised cosine.
 
 In this [file](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/my_bnn_sin.ipynb), the same but with the noised sine.
-
-The other file are basically failed attempts or previous versions that will be removed once everything is nicely done.
