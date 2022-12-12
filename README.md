@@ -2,7 +2,7 @@
 
 The goal of this project is to study the method proposed in the paper : *Uncertainty quantification in Neural Networks by Approximate Bayesian, Computation: Application to fatigue in composite materials* and eventualy apply it to a new data set.
 
-In the [report](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/Rapport_Uncertainty%20.ipynb) file we go over : 
+In the [report](https://nbviewer.org/github/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/Rapport_Uncertainty%20.ipynb) file we go over : 
 
 * Introduction/Aim of the paper
 * Background
