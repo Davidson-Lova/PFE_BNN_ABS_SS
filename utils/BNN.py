@@ -270,67 +270,129 @@ def plotTubeMedian(XT, y, thetas, ns):
 
 def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
     """ BNN_ABC_SS
+    Renvoie un population de taille N de thetas (poids)
+    qui sont les meilleurs à approcher la fonction à approcher
+    ce qui permet d'approcher la distribution a posteriori des poids par rapport au données
 
     Parameters
     ----------
     N : int
+        La taille de la population
     l : int
+        Le nombre d'itération 
     P0 : float
+        Le part de la population gardé
     epsilon : float
-    sigma_0 : float : 
+        Le seuil minimal à respecter sur l'erreur
+    sigma_0 : float
+        La variance initiale de la distribution a priori
     fact : float
+        Un facteur
     ns : list 
+        La liste qui contient le nombre de cellules par couches
     XT : torch.Tensor
+        Le vecteur d'entrée
     y : torch.Tensor
+        Le vecteur de sortie bruité
 
     Returns
     -------
     thetas : list of torch.Tensor
-
+        Une liste de taille N, the theta
     rho_n : torch.Tensor
+        Le tenseur qui contient les erreurs finals
 
     """
+    # Temperature initiale
+    T = 30
+
+    # Ici on commence l'algorithm BNN-ABC-SS
     NP0 = int(N*P0)
     invP0 = int(1/P0)
     lll = modelSize(ns)
 
+    # Distance qui va être utiliser pour évaluer
+    # la dissimilarité entre les prédictions y_hat et la réponse y
+    pdist = 2
+
+    # L'a priopri gaussien N(0, I) pour les poids
     thetas = torch.randn(lll, N)
 
+    # On evalue tout ça
     y_hats = torch.concat(
         tuple([FNN(ns, thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
 
-    rho_n = torch.cdist(y_hats.t(), y.t())
+    # On calcul la dissimilarité
+    rho_n = torch.cdist(y_hats.t(), y.t(), p=pdist)
 
+    # On fixe un petit truc qui va être utile après
+    # c'est en fait le pas
     sigma_j = sigma_0
 
+    # # Pour du débugage on ne fait pas attention
+    # # Relative learning rate
+    # lr = []
+    # stop = []
+
+    # Iteration
     l_eps = []
+    TOld = T
     for j in range(0, l):
+
+        # On trie les erreurs et on mets les poids dans
+        # l'ordre croissant des érreurs qu'ils produisent
         rho_n, indices = torch.sort(rho_n, 0)
         thetas = thetas[:, indices.t()[0]]
 
-        epsilon_j = rho_n[int(N*P0)]
+        epsilon_j = rho_n[NP0]
 
-        # for debugging purposes
-        l_eps.append(epsilon_j)
+        # # Lr
+        # rho_nOld = rho_n
 
-        thetasSeeds = (thetas[:, :NP0].t()).repeat(invP0, 1).t()
-        rho_nSeeds = (rho_n[:NP0, 0].reshape(NP0, 1)).repeat(invP0, 1)
+        # Ici on a un échantillion de taille NP0 et on veut
+        # en créer N à partir de cette échantillion en fesant
+        # (invPO - 1) pas
+        thetasSeeds = thetas[:, :NP0]
+        rhoSeeds = rho_n[:NP0]
 
-        # Resampling using seeds
-        thetasResamples = torch.normal(thetasSeeds, sigma_j)
-        # Evaluating performaces
-        y_hatsResamples = torch.concat(
-            tuple([FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, N)]), 1)
-        rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t())
+        # Réglage de la température
+        Tcur = TOld
 
-        # Mask creation
-        mask = torch.diag((rho_nResamples <= rho_nSeeds)[:, 0].float())
+        # Réglage de sigma_j
+        sigma_j = sigma_0
 
-        thetas = torch.matmul(thetasResamples, mask) + \
-            torch.matmul(thetasSeeds, torch.eye(N) - mask)
-        rho_n = torch.matmul(mask, rho_nResamples) + \
-            torch.matmul(torch.eye(N) - mask, rho_nSeeds)
+        #
+        thetas = thetasSeeds
+        rho_n = rho_n[:NP0]
 
-        sigma_j = sigma_j - 0.1
+        for g in range(invP0 - 1):
+            # for debugging purposes
+            l_eps.append(epsilon_j)
+            thetasResamples = torch.normal(thetasSeeds, sigma_j)
+
+            # On evalue les erreurs
+            y_hatsResamples = torch.concat(
+                tuple([FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
+            rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
+
+            # On évalue l'amélioration
+            ameRho = rho_nResamples - rhoSeeds
+            ameTheta = thetasResamples - thetasSeeds
+
+            # On voit si on avance dans le sens du gradient ou pas
+            # Si il y a une amélioration on avance
+            # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
+            avanceOuNon = torch.bernoulli(
+                1 / (1 + torch.exp(- (1/Tcur) * (ameRho))))
+            avanceOuNon[ameRho > 0] = 1
+
+            # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
+            mask = torch.diag(avanceOuNon[:, 0].float())
+
+            #
+            thetasSeeds = thetasResamples - torch.matmul(ameTheta, mask)
+            thetas = torch.concatenate((thetas, thetasSeeds), 1)
+            rhoSeeds = rho_nResamples
+            rho_n = torch.concatenate((rho_n, rhoSeeds))
 
     return thetas, rho_n
