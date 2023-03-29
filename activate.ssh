@@ -1,0 +1,2 @@
+#!/bin/bash
+conda activate /home/davidson/anaconda3/envs/py39/
