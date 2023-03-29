@@ -6,5 +6,6 @@ Ici il s'agit d'implementer l'algorithme BNN-ABC-SS
 2. [movie2.0.py](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/movie2.0.py) c'est un programme qui montre un film de l'apprentissage d'un tube de fluctuation
 3. [plot.png](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/plot.png) le resultat de l'apprentissage
 4. [log.md](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/log.md) pour voir les idées et avancements
-5. Le reste c'est pour tester des versions
+5. [utils](https://github.com/Davidson-Lova/PFE_BNN_ABS_SS/blob/master/utils) pour voir le package qui contient la fonction
+6. Le reste c'est pour tester des versions
 Lien pour le colab [ici](https://colab.research.google.com/drive/1qhNEKAQfYp5EqzOJBPvDkvF_a3yGH3w-?usp=sharing).
