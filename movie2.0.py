@@ -5,7 +5,7 @@ import torch.nn as nn
 import time
 from utils import BNN
 
-# plt.ion()
+plt.ion()
 
 # Un jour on saura coder sur GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -102,7 +102,7 @@ for j in range(0, l):
     rho_n, indices = torch.sort(rho_n, 0)
     thetas = thetas[:, indices.t()[0]]
 
-    epsilon_j = rho_n[int(N*P0)]
+    epsilon_j = rho_n[NP0]
 
     # # Lr
     # rho_nOld = rho_n
@@ -111,22 +111,57 @@ for j in range(0, l):
     # en créer N à partir de cette échantillion en fesant
     # (invPO - 1) pas
     thetasSeeds = thetas[:, :NP0]
+    rhoSeeds = rho_n[:NP0]
 
     # Réglage de la température
     Tcur = TOld
 
-    # reglage de sigma_j
+    # Réglage de sigma_j
     sigma_j = sigma_0
+
+    #
+    thetas = thetasSeeds
+    rho_n = rho_n[:NP0]
 
     for g in range(invP0 - 1):
         # for debugging purposes
         l_eps.append(epsilon_j)
         thetasResamples = torch.normal(thetasSeeds, sigma_j)
 
-        # On evalue
-        # Evaluating performaces
+        # On evalue les erreurs
         y_hatsResamples = torch.concat(
             tuple([BNN.FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
         rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
 
-    print("blip")
+        # On évalue l'amélioration
+        ameRho = rho_nResamples - rhoSeeds
+        ameTheta = thetasResamples - thetasSeeds
+
+        # On voit si on avance dans le sens du gradient ou pas
+        # Si il y a une amélioration on avance
+        # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
+        avanceOuNon = torch.bernoulli(
+            1 / (1 + torch.exp(- (1/Tcur) * (ameRho))))
+        avanceOuNon[ameRho > 0] = 1
+
+        # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
+        mask = torch.diag(avanceOuNon[:, 0].float())
+
+        #
+        thetasSeeds = thetasResamples - torch.matmul(ameTheta, mask)
+        thetas = torch.concatenate((thetas, thetasSeeds), 1)
+        rhoSeeds = rho_nResamples
+        rho_n = torch.concatenate((rho_n, rhoSeeds))
+
+    plt.clf()
+    BNN.plotTubeMedian(XT, y, thetas, ns)
+    plt.show()
+    plt.pause(0.1)
+
+plt.clf()
+BNN.plotTubeMedian(XT, y, thetas, ns)
+
+# save the figure
+plt.savefig('plot.png', dpi=300, bbox_inches='tight')
+plt.show()
+plt.pause(0.1)
