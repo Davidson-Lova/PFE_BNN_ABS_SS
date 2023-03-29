@@ -1,0 +1,11 @@
+.emph {
+    background-color: rgb(100, 0, 0);
+}
+
+.add {
+    background-color: rgb(100, 98, 0);
+}
+
+.valid {
+    background-color: rgb(0, 100, 0);
+}
