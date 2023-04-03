@@ -52,7 +52,7 @@ y_true = torch.Tensor(y_true).reshape(y_true.shape)
 
 # Hypperparamètres
 N = 1000
-l = 10
+lmax = 1000
 P0 = 0.3
 epsilon = 0.1
 sigma_0 = 0.3
@@ -61,7 +61,7 @@ ns = [1, 2, 2, 1]
 # tol = 1e-3
 
 # Temperature initiale
-T = np.sum(1 / np.log(2 + np.arange(l))) + 10
+T = np.sum(1 / np.log(2 + np.arange(lmax))) + 10
 
 # Ici on commence l'algorithm BNN-ABC-SS
 NP0 = int(N*P0)
@@ -95,7 +95,9 @@ sigma_j = sigma_0
 # Iteration
 l_eps = []
 Tcur = T
-for j in range(0, l):
+# for j in range(0, l):
+j = 0
+while (rho_n[0, 0] > epsilon):
 
     # On trie les erreurs et on mets les poids dans
     # l'ordre croissant des érreurs qu'ils produisent
@@ -152,6 +154,9 @@ for j in range(0, l):
 
     # Réglage de la température
     Tcur -= 1 / np.log(2 + j)
+    j += 1
+    if (j >= lmax):
+        break
 
     plt.clf()
     BNN.plotTubeMedian(XT, y, thetas, ns)
