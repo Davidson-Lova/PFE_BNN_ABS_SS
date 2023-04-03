@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
-import time
+from datetime import datetime
 from utils import BNN
 
 plt.ion()
@@ -51,17 +51,17 @@ y = torch.Tensor(y).reshape(y.shape)
 y_true = torch.Tensor(y_true).reshape(y_true.shape)
 
 # Hypperparamètres
-N = 500
-l = 100
-P0 = 0.1
+N = 1000
+l = 10
+P0 = 0.3
 epsilon = 0.1
-sigma_0 = 0.5
+sigma_0 = 0.3
 fact = 0.1
-ns = [1, 2, 1]
+ns = [1, 2, 2, 1]
 # tol = 1e-3
 
 # Temperature initiale
-T = 30
+T = np.sum(1 / np.log(2 + np.arange(l))) + 10
 
 # Ici on commence l'algorithm BNN-ABC-SS
 NP0 = int(N*P0)
@@ -94,7 +94,7 @@ sigma_j = sigma_0
 
 # Iteration
 l_eps = []
-TOld = T
+Tcur = T
 for j in range(0, l):
 
     # On trie les erreurs et on mets les poids dans
@@ -113,9 +113,6 @@ for j in range(0, l):
     thetasSeeds = thetas[:, :NP0]
     rhoSeeds = rho_n[:NP0]
 
-    # Réglage de la température
-    Tcur = TOld
-
     # Réglage de sigma_j
     sigma_j = sigma_0
 
@@ -131,27 +128,30 @@ for j in range(0, l):
         # On evalue les erreurs
         y_hatsResamples = torch.concat(
             tuple([BNN.FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
-        rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
+        rhoResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
 
         # On évalue l'amélioration
-        ameRho = rho_nResamples - rhoSeeds
-        ameTheta = thetasResamples - thetasSeeds
+        deltaRho = rhoResamples - rhoSeeds
+        deltaTheta = thetasResamples - thetasSeeds
 
         # On voit si on avance dans le sens du gradient ou pas
         # Si il y a une amélioration on avance
         # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
         avanceOuNon = torch.bernoulli(
-            1 / (1 + torch.exp(- (1/Tcur) * (ameRho))))
-        avanceOuNon[ameRho > 0] = 1
+            1 / (1 + torch.exp(- (1/Tcur) * (deltaRho))))
+        avanceOuNon[deltaRho < 0] = 0
 
         # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
         mask = torch.diag(avanceOuNon[:, 0].float())
 
-        #
-        thetasSeeds = thetasResamples - torch.matmul(ameTheta, mask)
+        # Mise à jour
+        thetasSeeds = thetasResamples - torch.matmul(deltaTheta, mask)
         thetas = torch.concatenate((thetas, thetasSeeds), 1)
-        rhoSeeds = rho_nResamples
+        rhoSeeds = rhoResamples - torch.matmul(mask, deltaRho)
         rho_n = torch.concatenate((rho_n, rhoSeeds))
+
+    # Réglage de la température
+    Tcur -= 1 / np.log(2 + j)
 
     plt.clf()
     BNN.plotTubeMedian(XT, y, thetas, ns)
@@ -162,6 +162,12 @@ plt.clf()
 BNN.plotTubeMedian(XT, y, thetas, ns)
 
 # save the figure
-plt.savefig('plot.png', dpi=300, bbox_inches='tight')
+
+# datetime object containing current date and time
+now = datetime.now()
+# dd-mm-YY_H:M:S
+dt_string = now.strftime("%d-%m-%Y_%H:%M:%S")
+
+plt.savefig('plots/plot{}.png'.format(dt_string), dpi=300, bbox_inches='tight')
 plt.show()
 plt.pause(0.1)
