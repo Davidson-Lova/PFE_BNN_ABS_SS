@@ -62,16 +62,6 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 
 \lstset{style=mystyle}
 
-%% préambule
-\usepackage[
-   backend=biber,        % compilateur par défaut pour biblatex
-   sorting=nyt,          % trier par nom, année, titre
-   citestyle=authoryear, % style de citation auteur-année
-   bibstyle=alphabetic,  % style de bibliographie alphabétique
-]{biblatex}
-\addbibresource{rapport.bib}
-%% corps du documen
-
 \title{PFE}
 \author{Khaled MEDJKOUH \\ Davidson Lova RAZAFINDRAKOTO}
 
@@ -303,12 +293,12 @@ pour faire des tirages plus fins.
 
 Soient $\epsilon_1 > \epsilon_2 > ... >\epsilon_m = \epsilon$ des seuils.
 
-Il est clair que $\mathcal{N}_{\epsilon_m} (D)\subset \mathcal{N}_{\epsilon_{m - 1}} (D) 
-\subset ... \subset \mathcal{N}_{\epsilon_{2}} (D) \subset \mathcal{N}_{\epsilon_{1}} (D)$.
+Il est clair que $\mathcal{N}_{\epsilon_m} (D)\subset \mathcal{N}_{\epsilon_{m - 1}} (D)
+    \subset ... \subset \mathcal{N}_{\epsilon_{2}} (D) \subset \mathcal{N}_{\epsilon_{1}} (D)$.
 
 De plus et en conséquence, $\bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} = \mathcal{N}_{\epsilon_m} = \mathcal{N}_{\epsilon} $, ce qui nous donne
 
-$$ \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta \right) = \mathbb{P} \left(\hat{y} \in \bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} (D)| \theta\right)$$ 
+$$ \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta \right) = \mathbb{P} \left(\hat{y} \in \bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} (D)| \theta\right)$$
 
 $$= \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_1} (D)| \theta\right)
     \prod_{j = 2}^{m} \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_j} (D)|\hat{y} \in \mathcal{N}_{\epsilon_{j - 1}} (D), \theta\right)$$
@@ -359,30 +349,30 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 
     \Pour{$j \in \{1,..., l_{max}\}$}{
 
-        On ordonne $\left[\gamma_1^{(j-1)},..., \gamma_1^{(j-1)} \right]$ dans l'ordre croissant;
-        
-        On réordonne $\left[\theta_1^{(j-1) }, ..., \theta_N^{(j-1)}\right]$ dans cette ordre;
+    On ordonne $\left[\gamma_1^{(j-1)},..., \gamma_1^{(j-1)} \right]$ dans l'ordre croissant;
 
-        $\epsilon_j \gets \gamma_{NP_0}^{(j-1)}$ (ou $\frac{1}{2} (\gamma_{NP_0}^{(j-1)} + \gamma_{NP_0 + 1}^{(j-1)})$);
+    On réordonne $\left[\theta_1^{(j-1) }, ..., \theta_N^{(j-1)}\right]$ dans cette ordre;
 
-        \Pour{$k \in \{1,..., NP_0\}$}{
-            On choisit une graine $\theta_k^{(j-1), 1} = \theta_k^{(j-1)}$ tq $\hat{y}_k^{(j-1)} \in \mathcal{N}_{\epsilon_j} (D)$
+    $\epsilon_j \gets \gamma_{NP_0}^{(j-1)}$ (ou $\frac{1}{2} (\gamma_{NP_0}^{(j-1)} + \gamma_{NP_0 + 1}^{(j-1)})$);
 
-            On génère $iP_0$ états d'une chaine de markov de $\theta$ tq $\hat{y}\in \mathcal{N}_{\epsilon_j} (D)$ :
+    \Pour{$k \in \{1,..., NP_0\}$}{
+    On choisit une graine $\theta_k^{(j-1), 1} = \theta_k^{(j-1)}$ tq $\hat{y}_k^{(j-1)} \in \mathcal{N}_{\epsilon_j} (D)$
 
-            $\left[ \theta_k^{(j-1), 1}, ..., \theta_k^{(j-1), iP_0} \right]$ et avec ça $\left[\gamma_k^{(j-1), 1},..., \gamma_k^{(j-1), iP_0} \right]$
-        }
+    On génère $iP_0$ états d'une chaine de markov de $\theta$ tq $\hat{y}\in \mathcal{N}_{\epsilon_j} (D)$ :
 
-        $[\theta_1^{(j)},..., \theta_N^{(j)}] \gets [\theta_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
+    $\left[ \theta_k^{(j-1), 1}, ..., \theta_k^{(j-1), iP_0} \right]$ et avec ça $\left[\gamma_k^{(j-1), 1},..., \gamma_k^{(j-1), iP_0} \right]$
+    }
 
-        $[\gamma_1^{(j)},..., \gamma_N^{(j)}] \gets [\gamma_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
+    $[\theta_1^{(j)},..., \theta_N^{(j)}] \gets [\theta_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
+
+    $[\gamma_1^{(j)},..., \gamma_N^{(j)}] \gets [\gamma_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
 
 
 
-        \Si{$\epsilon_j \leq \epsilon$}
-        {
-            Fin de l'algorithme;
-        }
+    \Si{$\epsilon_j \leq \epsilon$}
+    {
+        Fin de l'algorithme;
+    }
 
     }
 
@@ -405,9 +395,8 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 \pagebreak
 
 \section{Réalisation}
-
-+ On se donne un base de données à étudier
-avec une comparasion avec des méthodes déja existantes \footcite{matsumoto_tracking_2013}.
+% \footcite{BNN_ABC_SS_main}.
+On se donne un base de données à étudier avec une comparasion avec des méthodes déja existante \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
 
 \subsection{Cosinus perturbé}
 
@@ -416,6 +405,7 @@ avec une comparasion avec des méthodes déja existantes \footcite{matsumoto_tra
 \section{Conclusion et perspective}
 
 \pagebreak
-\printbibliography
+\bibliographystyle{plain}
+\bibliography{rapport.bib}
 
 \end{document}

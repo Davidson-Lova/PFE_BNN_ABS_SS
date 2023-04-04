@@ -1,91 +1,24 @@
-% $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
-% Do not modify the above lines!
-%
-% This is an auxiliary file used by the 'biblatex' package.
-% This file may safely be deleted. It will be recreated by
-% biber as required.
-%
-\begingroup
-\makeatletter
-\@ifundefined{ver@biblatex.sty}
-  {\@latex@error
-     {Missing 'biblatex' package}
-     {The bibliography requires the 'biblatex' package.}
-      \aftergroup\endinput}
-  {}
-\endgroup
+\begin{thebibliography}{1}
 
+\bibitem{Chiachio2014}
+Manuel Chiachio, James~L. Beck, Juan Chiachio, and Guillermo Rus.
+\newblock Approximate bayesian computation by subset simulation.
+\newblock {\em {SIAM} Journal on Scientific Computing}, 36(3):A1339--A1358,
+  January 2014.
 
-\refsection{0}
-  \datalist[entry]{nyt/global//global/global}
-    \entry{matsumoto_tracking_2013}{article}{}
-      \name{author}{6}{}{%
-        {{un=0,uniquepart=base,hash=ef9d867c87f5d363adbca7181c1844bf}{%
-           family={Matsumoto},
-           familyi={M\bibinitperiod},
-           given={Haru},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d43f7eab4b625cffd243b3f2141e092c}{%
-           family={Jones},
-           familyi={J\bibinitperiod},
-           given={Christopher},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=78a9da9ec4a63a0a3d3757ec75e31507}{%
-           family={Klinck},
-           familyi={K\bibinitperiod},
-           given={Holger},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4764aa4ab13dc38d52d107da0c5304ce}{%
-           family={Mellinger},
-           familyi={M\bibinitperiod},
-           given={David\bibnamedelima K.},
-           giveni={D\bibinitperiod\bibinitdelim K\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=6a69b704e897626c7c035494d6dab02c}{%
-           family={Dziak},
-           familyi={D\bibinitperiod},
-           given={Robert\bibnamedelima P.},
-           giveni={R\bibinitperiod\bibinitdelim P\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=216c9e73388a1ac69ceb0a128333677b}{%
-           family={Meinig},
-           familyi={M\bibinitperiod},
-           given={Christian},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{dab0e11c8853b795f8dc925134637ae8}
-      \strng{fullhash}{3be0496cce77c4a4298ee2b6b3c6416b}
-      \strng{bibnamehash}{dab0e11c8853b795f8dc925134637ae8}
-      \strng{authorbibnamehash}{dab0e11c8853b795f8dc925134637ae8}
-      \strng{authornamehash}{dab0e11c8853b795f8dc925134637ae8}
-      \strng{authorfullhash}{3be0496cce77c4a4298ee2b6b3c6416b}
-      \field{labelalpha}{Mat+13}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{00014966}
-      \field{journaltitle}{The Journal of the Acoustical Society of America}
-      \field{langid}{english}
-      \field{number}{2}
-      \field{title}{Tracking beaked whales with a passive acoustic profiler float}
-      \field{volume}{133}
-      \field{year}{2013}
-      \field{dateera}{ce}
-      \field{pages}{731}
-      \range{pages}{1}
-      \verb{doi}
-      \verb 10.1121/1.4773260
-      \endverb
-    \endentry
-  \enddatalist
-\endrefsection
-\endinput
+\bibitem{Fernndez2022}
+Juan Fern{\'{a}}ndez, Manuel Chiach{\'{\i}}o, Juan Chiach{\'{\i}}o, Rafael
+  Mu{\~{n}}oz, and Francisco Herrera.
+\newblock Uncertainty quantification in neural networks by approximate bayesian
+  computation: Application to fatigue in composite materials.
+\newblock {\em Engineering Applications of Artificial Intelligence},
+  107:104511, January 2022.
 
+\bibitem{Uncertainty_Deep}
+Jakob Gawlikowski, Cedrique Rovile~Njieutcheu Tassi, Mohsin Ali, Jongseok Lee,
+  Matthias Humt, Jianxiang Feng, Anna Kruspe, Rudolph Triebel, Peter Jung,
+  Ribana Roscher, Muhammad Shahzad, Wen Yang, Richard Bamler, and Xiao~Xiang
+  Zhu.
+\newblock A survey of uncertainty in deep neural networks, 2021.
+
+\end{thebibliography}
