@@ -1,4 +1,7 @@
 \documentclass[french,12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subfigure}
+\usepackage{float}
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
@@ -79,18 +82,32 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 Incertitudes utile dans plusieurs domaines et la quantification duquel
 est nécessaire pour des évaluations de risques, déctection d'anomalie et prise décision.
 
-
 \subsection{Réseau de neurones}
 
+Un réseaux de neurones est composé d'une couché d'entrée, des couches cachés
+et une couche de sortie.
 
+\begin{figure}[H]
+    \centerline{\includegraphics[width = 0.6\textwidth]{FNN/Images/fnn/fnn_page-0001.jpg}}
+    \caption{Schéma de réseaux}
+    \label{fig:fnn}
+\end{figure}
 
-+ Historique sur les réseaux de neurones
+La couche d'entrée prend la donnée d'entrée $x$, et la fait passer le long des couches cachées
+pour finalement arrivée à la couche de sortie. Ci-dessous on voit comment sont évaluer les valeurs
+pour chaque couche. 
 
-+ Explication des poids et biais et fonction d'activation
+\begin{figure}[H]
+    \centerline{\includegraphics[width = 0.75\textwidth]{FNN/Images/fnnDetails/fnnDetails_page-0001.jpg}}
+    \caption{Feed Forward}
+    \label{fig:fnnDetails}
+\end{figure}
 
 + Quelque résultats et application
 
 + Ce qui nous amène à un problème
+
+
 
 
 
