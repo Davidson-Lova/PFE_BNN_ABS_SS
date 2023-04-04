@@ -51,26 +51,27 @@ y = torch.Tensor(y).reshape(y.shape)
 y_true = torch.Tensor(y_true).reshape(y_true.shape)
 
 # Hypperparamètres
-N = 1000
-lmax = 1000
-P0 = 0.3
+N = 1200
+lmax = 200
+P0 = 0.25
 epsilon = 0.1
-sigma_0 = 0.3
-fact = 0.1
-ns = [1, 2, 2, 1]
-# tol = 1e-3
+sigma_0 = 0.5
+ns = [1, 3, 3, 1]
 
 # Temperature initiale
-T = np.sum(1 / np.log(2 + np.arange(lmax))) + 10
+# T = np.sum(1 / np.log(2 + np.arange(lmax))) + 15
+T = 40
+Tmin = 15
+
+# Distance qui va être utiliser pour évaluer
+# la dissimilarité entre les prédictions y_hat et la réponse y
+pdist = 2
 
 # Ici on commence l'algorithm BNN-ABC-SS
 NP0 = int(N*P0)
 invP0 = int(1/P0)
 lll = BNN.modelSize(ns)
 
-# Distance qui va être utiliser pour évaluer
-# la dissimilarité entre les prédictions y_hat et la réponse y
-pdist = 2
 
 # L'a priopri gaussien N(0, I) pour les poids
 thetas = torch.randn(lll, N)
@@ -153,18 +154,20 @@ while (rho_n[0, 0] > epsilon):
         rho_n = torch.concatenate((rho_n, rhoSeeds))
 
     # Réglage de la température
-    Tcur -= 1 / np.log(2 + j)
+    Tcur = max(T / np.log(2 + j), Tmin)
     j += 1
     if (j >= lmax):
         break
 
     plt.clf()
     BNN.plotTubeMedian(XT, y, thetas, ns)
+    plt.title("Epoch {}| T {}".format(j, Tcur))
     plt.show()
     plt.pause(0.1)
 
 plt.clf()
 BNN.plotTubeMedian(XT, y, thetas, ns)
+plt.title("Epoch {}".format(j))
 
 # save the figure
 
