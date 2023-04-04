@@ -95,7 +95,6 @@ sigma_j = sigma_0
 
 # Iteration
 l_eps = []
-Tcur = T
 # for j in range(0, l):
 j = 0
 while (rho_n[0, 0] > epsilon):
@@ -123,6 +122,8 @@ while (rho_n[0, 0] > epsilon):
     thetas = thetasSeeds
     rho_n = rho_n[:NP0]
 
+    # Réglage de la température
+    Tcur = T
     for g in range(invP0 - 1):
         # for debugging purposes
         l_eps.append(epsilon_j)
@@ -153,9 +154,11 @@ while (rho_n[0, 0] > epsilon):
         rhoSeeds = rhoResamples - torch.matmul(mask, deltaRho)
         rho_n = torch.concatenate((rho_n, rhoSeeds))
 
-    # Réglage de la température
-    Tcur = max(T / np.log(2 + j), Tmin)
-    j += 1
+        # Réglage de la température
+        Tcur = max(T / np.log(2 + j), Tmin)
+        j += 1
+
+        
     if (j >= lmax):
         break
 

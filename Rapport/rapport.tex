@@ -95,7 +95,7 @@ et une couche de sortie.
 
 La couche d'entrée prend la donnée d'entrée $x$, et la fait passer le long des couches cachées
 pour finalement arrivée à la couche de sortie. Ci-dessous on voit comment sont évaluer les valeurs
-pour chaque couche. 
+pour chaque couche.
 
 \begin{figure}[H]
     \centerline{\includegraphics[width = 0.75\textwidth]{FNN/Images/fnnDetails/fnnDetails_page-0001.jpg}}
@@ -106,10 +106,6 @@ pour chaque couche.
 + Quelque résultats et application
 
 + Ce qui nous amène à un problème
-
-
-
-
 
 \subsection{Source d'incertitudes dans un réseaux de neurones}
 
@@ -245,8 +241,6 @@ $$p(\theta | D) = \frac{p(D | \theta) }{p(D)}p(\theta)$$
     \item $p(\theta)$ la distribution a priori de $\theta$,
     \item $p(D)$ la distribution des données d'entrainement.
 \end{itemize}
-
-$$p(\theta | D) \propto $$
 
 \pagebreak
 
@@ -410,15 +404,23 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 
 
 \pagebreak
-
 \section{Réalisation}
 % \footcite{BNN_ABC_SS_main}.
 On se donne un base de données à étudier avec une comparasion avec des méthodes déja existante \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
+Ici on propose de reproduire un résultat vu dans l'article \cite{Fernndez2022}.
 
 \subsection{Cosinus perturbé}
 
+$y(x) = \cos(x) + \zeta$ où $\zeta \sim \mathcal{N}(0.1)$
+
+
+
+
 \subsection{Sinus perturbé}
 
+$y(x) = 10 \sin(2 \pi x) + \zeta$ où $\zeta \sim \mathcal{N}(0.1)$
+
+\pagebreak
 \section{Conclusion et perspective}
 
 \pagebreak

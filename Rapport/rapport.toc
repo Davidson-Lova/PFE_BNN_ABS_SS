@@ -11,11 +11,11 @@
 \contentsline {subsection}{\numberline {2.1}Méthodes variationelles}{5}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Méthode de Laplace}{5}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Méthodes par échantillonage ou Monte Carlo}{5}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Algorithme BNN-ABC-SS}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}ABC (Approximate Bayesian Computation)}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}SS (Subset Simulation)}{7}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Pseudo - Code}{8}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Réalisation}{10}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Cosinus perturbé}{10}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Sinus perturbé}{10}{subsection.4.2}%
+\contentsline {section}{\numberline {3}Algorithme BNN-ABC-SS}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}ABC (Approximate Bayesian Computation)}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}SS (Subset Simulation)}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Pseudo - Code}{7}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Réalisation}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Cosinus perturbé}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Sinus perturbé}{9}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Conclusion et perspective}{10}{section.5}%
