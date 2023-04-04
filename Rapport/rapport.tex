@@ -1,17 +1,26 @@
-\documentclass{article}
+\documentclass[french,12pt]{article}
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,
+right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{csquotes}
 
 % Useful packages
-\usepackage{amsmath}
+
+\usepackage{fix-cm}% to provide smooth tiny font sizes
+\usepackage{amsmath,mathtools}
+\usepackage{bbm}
 \usepackage{amsfonts}
 \usepackage{graphicx}
+% \usepackage{algpseudocode}
+% \usepackage{algorithm}
+\usepackage[ruled, lined]{algorithm2e}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 % Langue
-\usepackage[french]{babel}
+% \usepackage[french]{babel}
+\usepackage{babel}
 \usepackage[T1]{fontenc}
 
 % Redirection avec la table des matières
@@ -33,26 +42,35 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
 
 \lstset{style=mystyle}
 
+%% préambule
+\usepackage[
+   backend=biber,        % compilateur par défaut pour biblatex
+   sorting=nyt,          % trier par nom, année, titre
+   citestyle=authoryear, % style de citation auteur-année
+   bibstyle=alphabetic,  % style de bibliographie alphabétique
+]{biblatex}
+\addbibresource{rapport.bib}
+%% corps du documen
 
 \title{PFE}
 \author{Khaled MEDJKOUH \\ Davidson Lova RAZAFINDRAKOTO}
@@ -232,36 +250,172 @@ $$p(\theta | D) \propto $$
 La méthode ABC consiste à evaluer $p(\theta | D)$ sans évaluer
 la vraissemblance qui peut s'avérer couteux.
 
-Posons $\hat{y} = f(x, \theta)$ la sortie d'une évaluation de $x$ par 
-réseaux de neurones $f$ avec paramètre $\theta$. 
+Posons $\hat{y} = f(x, \theta)$ la sortie d'une évaluation de $x$ par
+réseaux de neurones $f$ avec paramètre $\theta$.
 
-La formule de Bayes donne 
+La formule de Bayes nous donne
 
 $$ p(\theta, \hat{y} | D) \propto p(D | \hat{y}, \theta) p(\hat{y} | \theta)
-p(\theta)$$
+    p(\theta)$$
 
 Pour simuler selon la distribution du second membre, on applique
-l'Algorithme de rejet.
+l'algorithme de rejet.
+
+\begin{itemize}
+    \item On tire $\theta \sim p(\theta)$
+    \item On evalue $\hat{y} = f(x , \theta) \sim p(\hat{y} | \theta)$
+    \item On accepte le $\theta$ si et seulement si $\hat{y} = y$
+\end{itemize}
+
+Comme $\hat{y}$ est une quantité réel (a priori à distribution continue),
+obtenir exactement $\hat{y} = y$ est une condition trop forte
+pour être atteinte (en un temps raisonable).
+
+On introduit alors une tolérance $\epsilon$, on remplace $\hat{y} = y$
+par $|\hat{y} - y| < \epsilon$.
+
+On remarque que plus $\epsilon$ est petit, plus on se rapproche de la condition $\hat{y} = y$,
+et donc le mieux notre approximation sera.
+
+On note $p_{\epsilon} (\theta, \hat{y} | D)$ la distribution issue
+du tirage précédent, et qui approche $p(\theta, \hat{y} |D)$, on a
+
+$$p_{\epsilon} (\theta , \hat{y} | D) \propto \mathbbm{1}_{\mathcal{N}_{\epsilon}(D)} (\hat{y}) p(\hat{y} | \theta)
+    p(\theta) $$
+
+où $$\mathcal{N}_{\epsilon}(D) = \{\hat{y} \in \mathcal{Y}, \rho(\eta(\hat{y}), \eta(y)) \leq \epsilon\}$$
+
+
+où $\eta$ est une statistique qui caractérise une distribution
+(par exemple les moments ou les quantiles) et $\rho$ est une mesure de dissimilarité.
+
+En intégrant des deux cotés par $\hat{y}$ on obtient notre approximation de $p(\theta | D)$
+
+$$p_{\epsilon}( \theta | D) = \int_{\mathcal{Y}} p_{\epsilon}( \theta , \hat{y}| D) d \hat{y} \propto \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y}) p( \hat{y}| \theta) p( \theta) d \hat{y}$$
+
+$$ = p( \theta) \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y})  p( \hat{y}| \theta) d \hat{y} = \mathbb{P} (\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta) p( \theta)$$
+
+Cependant lors de l'algorithme de rejet, tirer les $\theta$ de manière générique donne trop rarement des $\hat{y}$ qui tombe dans $\mathcal{N}_{\epsilon} (D)$
+ce qui fait que l'approximation est prend beaucoup de temps à converger. On utilise alors SS (Subset Simulation)
+pour faire des tirages plus fins.
 
 \subsection{SS (Subset Simulation)}
 
-+ celui dans le rapport d'avant
+Soient $\epsilon_1 > \epsilon_2 > ... >\epsilon_m = \epsilon$ des seuils.
+
+Il est clair que $\mathcal{N}_{\epsilon_m} (D)\subset \mathcal{N}_{\epsilon_{m - 1}} (D) 
+\subset ... \subset \mathcal{N}_{\epsilon_{2}} (D) \subset \mathcal{N}_{\epsilon_{1}} (D)$.
+
+De plus et en conséquence, $\bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} = \mathcal{N}_{\epsilon_m} = \mathcal{N}_{\epsilon} $, ce qui nous donne
+
+$$ \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta \right) = \mathbb{P} \left(\hat{y} \in \bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} (D)| \theta\right)$$ 
+
+$$= \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_1} (D)| \theta\right)
+    \prod_{j = 2}^{m} \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_j} (D)|\hat{y} \in \mathcal{N}_{\epsilon_{j - 1}} (D), \theta\right)$$
+
+
+L'idée de la SS, est de faire des tirages itératifs de plus en plus fins.
+
+Initialement on tire de manière générique avec un $\epsilon_1$ grand.
+
+A chaque itération, on tire à partir (conditionnées) des tirages précédents avec un $\epsilon_i$ plus fin.
+
+Après $n$ itérations, on aura tiré avec $\epsilon_m$ beaucoup plus petit que $\epsilon_0$.
+
+Cette méthode exploite la décompostion d'un probabilité d'un ordre très petit
+en un produit de probabilité d'un ordre assez grand pour être calculable en un temps raisonable.
+
+
 
 \subsection{Pseudo - Code}
 
-+ celui dans le rapprot d'avant
+%% This declares a command \Comment
+%% The argument will be surrounded by /* ... */
+\SetKwComment{Comment}{/* }{ */}
+
+\begin{algorithm}
+    \caption{Pseudo code BNN - ABC - SS}\label{alg:one}
+    \Entree{$N \in \mathbb{N}^*$ : le nombre de tirage à chaque itération
+        \linebreak $l_{\text{max}}\in \mathbb{N}^{*}$ : le nombre d'itération maximale
+        \linebreak $P_0$ la proportion de nos tirages qu'on grade pour générer à la prochaine itération
+        \linebreak $\epsilon_0$ : la tolérance initiale
+        \linebreak $\epsilon$ : la tolérance finale
+        \linebreak $x$ : la variable d'entrée
+        \linebreak $y$ : la variable de sortie
+    }
+    \Sortie{$\left[\theta_1^{(n)}, ...,\theta_N^{(n)} \right]$}
+
+    $NP_0 \gets N * p_0$\;
+
+    $iP_0 \gets p_0^{-1}$\;
+
+    $\left[\theta_1^{(0)}, ..., \theta_N^{(0)}\right]$, $N$ tirage de $\theta \sim p(\theta)$;
+
+    $\left[\hat{y}_1^{(0)}, ..., \hat{y}_1^{(0)}\right] \gets \left[f(x, \theta_1^{(0)}), ..., f(x, \theta_N^{(0)})\right]$;
+
+    $\left[\gamma_1^{(0)},..., \gamma_1^{(0)} \right] \gets \left[\rho(\eta(y), \eta(\hat{y}_1^{(0)})), ..., \rho(\eta(y), \eta(\hat{y}_N^{(0)}))\right]$;
+
+    $\epsilon_j \gets \epsilon_0$;
+
+    \Pour{$j \in \{1,..., l_{max}\}$}{
+
+        On ordonne $\left[\gamma_1^{(j-1)},..., \gamma_1^{(j-1)} \right]$ dans l'ordre croissant;
+        
+        On réordonne $\left[\theta_1^{(j-1) }, ..., \theta_N^{(j-1)}\right]$ dans cette ordre;
+
+        $\epsilon_j \gets \gamma_{NP_0}^{(j-1)}$ (ou $\frac{1}{2} (\gamma_{NP_0}^{(j-1)} + \gamma_{NP_0 + 1}^{(j-1)})$);
+
+        \Pour{$k \in \{1,..., NP_0\}$}{
+            On choisit une graine $\theta_k^{(j-1), 1} = \theta_k^{(j-1)}$ tq $\hat{y}_k^{(j-1)} \in \mathcal{N}_{\epsilon_j} (D)$
+
+            On génère $iP_0$ états d'une chaine de markov de $\theta$ tq $\hat{y}\in \mathcal{N}_{\epsilon_j} (D)$ :
+
+            $\left[ \theta_k^{(j-1), 1}, ..., \theta_k^{(j-1), iP_0} \right]$ et avec ça $\left[\gamma_k^{(j-1), 1},..., \gamma_k^{(j-1), iP_0} \right]$
+        }
+
+        $[\theta_1^{(j)},..., \theta_N^{(j)}] \gets [\theta_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
+
+        $[\gamma_1^{(j)},..., \gamma_N^{(j)}] \gets [\gamma_k^{(j-1), l}, k \in \{1, ..., NP_0\}, l \in \{1, ..., iP_0\}]$
+
+
+
+        \Si{$\epsilon_j \leq \epsilon$}
+        {
+            Fin de l'algorithme;
+        }
+
+    }
+
+    % \While{$N \neq 0$}{
+
+    %     \eIf{$N$ is even}{
+    %         $X \gets X \times X$\;
+    %         $N \gets \frac{N}{2}$ \Comment*[r]{This is a comment}
+
+    %     }{\If{$N$ is odd}{
+    %             $y \gets y \times X$\;
+    %             $N \gets N - 1$\;
+    %         }
+
+    %     }
+    % }
+\end{algorithm}
+
 
 \pagebreak
 
 \section{Réalisation}
 
 + On se donne un base de données à étudier
-avec une comparasion avec des méthodes déja existantes
+avec une comparasion avec des méthodes déja existantes \footcite{matsumoto_tracking_2013}.
 
 \subsection{Cosinus perturbé}
 
 \subsection{Sinus perturbé}
 
 \section{Conclusion et perspective}
+
+\pagebreak
+\printbibliography
 
 \end{document}
