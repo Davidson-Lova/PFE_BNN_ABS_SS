@@ -155,10 +155,9 @@ while (rho_n[0, 0] > epsilon):
         rho_n = torch.concatenate((rho_n, rhoSeeds))
 
         # Réglage de la température
-        Tcur = max(T / np.log(2 + j), Tmin)
-        j += 1
-
-        
+        Tcur = max(T / np.log(2 + g), Tmin)
+    
+    j += 1
     if (j >= lmax):
         break
 

@@ -220,6 +220,45 @@ def plotTubeMean(XT, y, thetas, ns):
     plt.legend()
 
 
+def plotTubeMeanBig(XT, XTBig, y, thetas, ns):
+    """ Comme celui d'avant mais sur un intervalle plus grands
+    Parameters
+    ----------
+    XT : torch.Tensor
+        tenseur d'entrée
+    y : torch.Tensor 
+        Solution bruité
+    thetas : list of torch.Tensor
+        un échantillion de poids
+    ns : list 
+        Le nombre de neurones par couche
+
+    Returns
+    -------
+    """
+    ymax = torch.max(y)
+    ymin = torch.min(y)
+    yspan = ymax - ymin
+
+    N = thetas.shape[1]
+    y_hats = torch.concat(
+        tuple([FNN(ns, thetas[:, i]).forward(XTBig) for i in range(0, N)]), 1)
+
+    std = torch.sqrt(y_hats.var(1))
+    mean = y_hats.mean(1)
+
+    binf = (mean - 3*std).reshape((XTBig.shape[0],1)).detach().numpy()
+    bsup = (mean + 3*std).reshape((XTBig.shape[0],1)).detach().numpy()
+
+    plt.fill_between(XTBig.ravel(), binf[:, 0],
+                        bsup[:, 0], color='gray', label="[]")
+    plt.plot(XTBig, (mean).reshape((XTBig.shape[0],1)).detach().numpy(),
+                label="Mean", color="r")
+    plt.scatter(XT, y, marker='+', color='k')
+    plt.ylim(ymin - 0.1*yspan, ymax + 0.1*yspan)
+    plt.legend()
+
+
 def plotTubeMedian(XT, y, thetas, ns):
     """ plot un tube centré sur la médiane
     Fait un forward pass avec en entrée XT pour chaque 
@@ -265,6 +304,50 @@ def plotTubeMedian(XT, y, thetas, ns):
 
     plt.scatter(XT, y, marker='+', color='k', label='Training data')
     plt.ylim(ymin - 0.01*yspan, ymax + 0.01*yspan)
+    plt.legend()
+
+
+def plotTubeMedianBig(XT, XTBig, y, thetas, ns):
+    """ même chose que celui d'avant mais sur un domaine plus grands
+
+    Parameters
+    ----------
+    XT : torch.Tensor
+        tenseur d'entrée
+    y : torch.Tensor 
+        Solution bruité
+    thetas : list of torch.Tensor
+        un échantillion de poids
+    ns : list 
+        Le nombre de neurones par couche
+
+    Returns
+    -------
+    """
+    ymax = torch.max(y)
+    ymin = torch.min(y)
+    yspan = ymax - ymin
+
+    N = thetas.shape[1]
+    y_hats = torch.concat(
+        tuple([FNN(ns, thetas[:, i]).forward(XTBig) for i in range(0, N)]), 1)
+
+    q2_5 = y_hats.quantile(0.025, 1).reshape((XTBig.shape[0],1)).detach().numpy()
+    q97_5 = y_hats.quantile(0.975, 1).reshape((XTBig.shape[0],1)).detach().numpy()
+    q25 = y_hats.quantile(0.25, 1).reshape((XTBig.shape[0],1)).detach().numpy()
+    q75 = y_hats.quantile(0.75, 1).reshape((XTBig.shape[0],1)).detach().numpy()
+    mediane = y_hats.quantile(0.5, 1).reshape(
+        XTBig.shape).detach().numpy()
+    plt.fill_between(XTBig.ravel(), q2_5[:, 0],
+                    q97_5[:, 0], alpha=0.5, color='gray')
+
+    plt.fill_between(XTBig.ravel(), q25[:, 0], q75[:, 0],
+                    alpha=0.5, color='k', label='IQR')
+
+    plt.plot(XTBig, mediane, label="Median", color='r')
+
+    plt.scatter(XT, y, marker='+', color='k', label='Training data')
+    plt.ylim(ymin - 0.1*yspan, ymax + 0.1*yspan)
     plt.legend()
 
 
