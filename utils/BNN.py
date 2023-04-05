@@ -142,6 +142,8 @@ class FNN(nn.Module):
                 self.funclist[i].weight = nn.Parameter(param_list[i*2])
                 self.funclist[i].bias = nn.Parameter(param_list[i*2 + 1])
 
+	return self
+	
     def getTheta(self):
         """ renvoie les poids
 
@@ -220,18 +222,23 @@ def plotTubeMean(XT, y, thetas, ns):
     plt.legend()
 
 
-def plotTubeMeanBig(XT, XTBig, y, thetas, ns):
+def plotTubeMeanBig(XT, XTBig, y, thetas, ns,c):
     """ Comme celui d'avant mais sur un intervalle plus grands
     Parameters
     ----------
     XT : torch.Tensor
         tenseur d'entrée
+    XTBig : torch.Tensor
+        tenseur d'entrée grand
+        
     y : torch.Tensor 
         Solution bruité
     thetas : list of torch.Tensor
         un échantillion de poids
     ns : list 
         Le nombre de neurones par couche
+    c : float
+        zoom
 
     Returns
     -------
@@ -255,7 +262,7 @@ def plotTubeMeanBig(XT, XTBig, y, thetas, ns):
     plt.plot(XTBig, (mean).reshape((XTBig.shape[0],1)).detach().numpy(),
                 label="Mean", color="r")
     plt.scatter(XT, y, marker='+', color='k')
-    plt.ylim(ymin - 0.1*yspan, ymax + 0.1*yspan)
+    plt.ylim(ymin - c*yspan, ymax + c*yspan)
     plt.legend()
 
 
@@ -307,19 +314,23 @@ def plotTubeMedian(XT, y, thetas, ns):
     plt.legend()
 
 
-def plotTubeMedianBig(XT, XTBig, y, thetas, ns):
+def plotTubeMedianBig(XT, XTBig, y, thetas, ns, c):
     """ même chose que celui d'avant mais sur un domaine plus grands
 
     Parameters
     ----------
     XT : torch.Tensor
         tenseur d'entrée
+    XTBig : torch.Tensor
+        tenseur d'entrée grand
     y : torch.Tensor 
         Solution bruité
     thetas : list of torch.Tensor
         un échantillion de poids
     ns : list 
         Le nombre de neurones par couche
+    c : float
+        Zoom
 
     Returns
     -------
@@ -347,7 +358,7 @@ def plotTubeMedianBig(XT, XTBig, y, thetas, ns):
     plt.plot(XTBig, mediane, label="Median", color='r')
 
     plt.scatter(XT, y, marker='+', color='k', label='Training data')
-    plt.ylim(ymin - 0.1*yspan, ymax + 0.1*yspan)
+    plt.ylim(ymin - c*yspan, ymax + c*yspan)
     plt.legend()
 
 
