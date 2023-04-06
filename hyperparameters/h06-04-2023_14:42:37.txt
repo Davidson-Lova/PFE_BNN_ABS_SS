@@ -1,0 +1,1 @@
+{"N": 500, "lmax": 200, "P0": 0.25, "epsilon": 0.1, "sigma_0": 0.5, "structure": [1, 2, 2, 1], "Temp": 40, "TempMin": 15, "pdist": 2}

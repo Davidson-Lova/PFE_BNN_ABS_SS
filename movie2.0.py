@@ -52,7 +52,7 @@ y = torch.Tensor(y).reshape(y.shape)
 y_true = torch.Tensor(y_true).reshape(y_true.shape)
 
 # Hypperparamètres
-N = 1000
+N = 500
 lmax = 200
 P0 = 0.25
 epsilon = 0.1
