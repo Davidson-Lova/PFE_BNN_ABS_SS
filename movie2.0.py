@@ -51,17 +51,20 @@ y = torch.Tensor(y).reshape(y.shape)
 y_true = torch.Tensor(y_true).reshape(y_true.shape)
 
 # Hypperparamètres
-N = 1200
+N = 1000
 lmax = 200
 P0 = 0.25
 epsilon = 0.1
 sigma_0 = 0.5
 ns = [1, 3, 3, 1]
 
+# Notre modèle
+myModel = BNN.FNN(ns)
+
 # Temperature initiale
 # T = np.sum(1 / np.log(2 + np.arange(lmax))) + 15
-T = 40
-Tmin = 15
+Temp = 40
+TempMin = 15
 
 # Distance qui va être utiliser pour évaluer
 # la dissimilarité entre les prédictions y_hat et la réponse y
@@ -70,15 +73,14 @@ pdist = 2
 # Ici on commence l'algorithm BNN-ABC-SS
 NP0 = int(N*P0)
 invP0 = int(1/P0)
-lll = BNN.modelSize(ns)
-
+myModelSize = BNN.modelSize(ns)
 
 # L'a priopri gaussien N(0, I) pour les poids
-thetas = torch.randn(lll, N)
+thetas = torch.randn(myModelSize, N)
 
 # On evalue tout ça
 y_hats = torch.concat(
-    tuple([BNN.FNN(ns, thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
+    tuple([myModel.update_weights(thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
 
 # On calcul la dissimilarité
 rho_n = torch.cdist(y_hats.t(), y.t(), p=pdist)
@@ -123,7 +125,7 @@ while (rho_n[0, 0] > epsilon):
     rho_n = rho_n[:NP0]
 
     # Réglage de la température
-    Tcur = T
+    TempCur = Temp
     for g in range(invP0 - 1):
         # for debugging purposes
         l_eps.append(epsilon_j)
@@ -131,7 +133,7 @@ while (rho_n[0, 0] > epsilon):
 
         # On evalue les erreurs
         y_hatsResamples = torch.concat(
-            tuple([BNN.FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
+            tuple([myModel.update_weights(thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
         rhoResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
 
         # On évalue l'amélioration
@@ -140,9 +142,9 @@ while (rho_n[0, 0] > epsilon):
 
         # On voit si on avance dans le sens du gradient ou pas
         # Si il y a une amélioration on avance
-        # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
+        # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ TempCur) * Grad)
         avanceOuNon = torch.bernoulli(
-            1 / (1 + torch.exp(- (1/Tcur) * (deltaRho))))
+            1 / (1 + torch.exp(- (1/TempCur) * (deltaRho))))
         avanceOuNon[deltaRho < 0] = 0
 
         # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
@@ -155,17 +157,17 @@ while (rho_n[0, 0] > epsilon):
         rho_n = torch.concatenate((rho_n, rhoSeeds))
 
         # Réglage de la température
-        Tcur = max(T / np.log(2 + g), Tmin)
-    
+        TempCur = max(Temp / np.log(2 + g), TempMin)
+
     j += 1
     if (j >= lmax):
         break
 
-    plt.clf()
-    BNN.plotTubeMedian(XT, y, thetas, ns)
-    plt.title("Epoch {}| T {}".format(j, Tcur))
-    plt.show()
-    plt.pause(0.1)
+    # plt.clf()
+    # BNN.plotTubeMedian(XT, y, thetas, ns)
+    # plt.title("Epoch {}| T {}".format(j, TempCur))
+    # plt.show()
+    # plt.pause(0.1)
 
 plt.clf()
 BNN.plotTubeMedian(XT, y, thetas, ns)
@@ -178,6 +180,7 @@ now = datetime.now()
 # dd-mm-YY_H:M:S
 dt_string = now.strftime("%d-%m-%Y_%H:%M:%S")
 
-plt.savefig('plots/plot{}.png'.format(dt_string), dpi=300, bbox_inches='tight')
 plt.show()
 plt.pause(0.1)
+
+torch.save(thetas, 'thetas/Thetas{}.pt'.format(dt_string))

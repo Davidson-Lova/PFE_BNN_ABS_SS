@@ -136,14 +136,31 @@ class FNN(nn.Module):
         -------
         """
         param_list = segment(thetas, self.ns)
-        nbparam = len(param_list)
         with torch.no_grad():
             for i in range(self.nbLayers - 1):
                 self.funclist[i].weight = nn.Parameter(param_list[i*2])
                 self.funclist[i].bias = nn.Parameter(param_list[i*2 + 1])
 
-	return self
-	
+        return self
+    
+    def getTheta(self):
+        """ renvoie les poids
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        torch.Tensor
+            Le gros tenseur de poids
+        """
+        param_list = []
+        for i in range(self.nbLayers - 1):
+            param_list.append(self.funclist[i].weight)
+            param_list.append(self.funclist[i].bias)
+
+        return wrap(param_list)
+    
     def getTheta(self):
         """ renvoie les poids
 
