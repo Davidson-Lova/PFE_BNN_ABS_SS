@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 from datetime import datetime
 from utils import BNN
+import json
 
 plt.ion()
 
@@ -56,7 +57,7 @@ lmax = 200
 P0 = 0.25
 epsilon = 0.1
 sigma_0 = 0.5
-ns = [1, 3, 3, 1]
+ns = [1, 2, 2, 1]
 
 # Notre modèle
 myModel = BNN.FNN(ns)
@@ -89,10 +90,9 @@ rho_n = torch.cdist(y_hats.t(), y.t(), p=pdist)
 # c'est en fait le pas
 sigma_j = sigma_0
 
-# # Pour du débugage on ne fait pas attention
-# # Relative learning rate
-# lr = []
-# stop = []
+# Relative learning rate
+rhoMin = []
+rhoMax = []
 
 
 # Iteration
@@ -104,6 +104,10 @@ while (rho_n[0, 0] > epsilon):
     # On trie les erreurs et on mets les poids dans
     # l'ordre croissant des érreurs qu'ils produisent
     rho_n, indices = torch.sort(rho_n, 0)
+
+    rhoMin.append(str(np.float32(torch.min(rho_n).detach())))
+    rhoMax.append(str(np.float32(torch.max(rho_n).detach())))
+
     thetas = thetas[:, indices.t()[0]]
 
     epsilon_j = rho_n[NP0]
@@ -129,7 +133,8 @@ while (rho_n[0, 0] > epsilon):
     for g in range(invP0 - 1):
         # for debugging purposes
         l_eps.append(epsilon_j)
-        thetasResamples = torch.normal(thetasSeeds, sigma_j)
+        # thetasResamples = torch.normal(thetasSeeds, sigma_j)
+        thetasResamples = thetasSeeds + torch.randn(thetasSeeds.shape) * sigma_j
 
         # On evalue les erreurs
         y_hatsResamples = torch.concat(
@@ -163,18 +168,17 @@ while (rho_n[0, 0] > epsilon):
     if (j >= lmax):
         break
 
-    # plt.clf()
-    # BNN.plotTubeMedian(XT, y, thetas, ns)
-    # plt.title("Epoch {}| T {}".format(j, TempCur))
-    # plt.show()
-    # plt.pause(0.1)
+    plt.clf()
+    BNN.plotTubeMedian(XT, y, thetas, ns)
+    plt.title("Epoch {}| T {}".format(j, TempCur))
+    plt.show()
+    plt.pause(0.1)
 
 plt.clf()
 BNN.plotTubeMedian(XT, y, thetas, ns)
 plt.title("Epoch {}".format(j))
 
 # save the figure
-
 # datetime object containing current date and time
 now = datetime.now()
 # dd-mm-YY_H:M:S
@@ -183,4 +187,21 @@ dt_string = now.strftime("%d-%m-%Y_%H:%M:%S")
 plt.show()
 plt.pause(0.1)
 
+# Sauvegarde des poids
 torch.save(thetas, 'thetas/Thetas{}.pt'.format(dt_string))
+
+# Sauvegarde des hypperparametres
+hyperparameters = {"N" : N, "lmax" : lmax, "P0" : P0, "epsilon" : epsilon, "sigma_0" : sigma_0, "structure" : ns
+                   ,"Temp" : Temp, "TempMin" : TempMin, "pdist" : pdist}
+
+f = open('hyperparameters/h{}.txt'.format(dt_string), 'w')
+f.close()
+with open('hyperparameters/h{}.txt'.format(dt_string), 'w') as convert_file:
+     convert_file.write(json.dumps(hyperparameters))
+
+# Sauvegarde des erreurs
+errors = {"errorMin" : rhoMin, "errorMax" : rhoMax}
+f = open('errors/er{}.txt'.format(dt_string), 'w')
+f.close()
+with open('errors/er{}.txt'.format(dt_string), 'w') as convert_file:
+     convert_file.write(json.dumps(errors))
