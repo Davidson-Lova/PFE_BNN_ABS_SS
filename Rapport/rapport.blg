@@ -3,44 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: rapport.aux
 The style file: plain.bst
 Database file #1: rapport.bib
+Warning--to sort, need author or key in NeetGraph
 You've used 4 entries,
             2118 wiz_defined-function locations,
-            529 strings with 5153 characters,
-and the built_in function-call counts, 1796 in all, are:
-= -- 158
-> -- 137
+            524 strings with 5026 characters,
+and the built_in function-call counts, 1610 in all, are:
+= -- 136
+> -- 125
 < -- 0
-+ -- 55
-- -- 50
-* -- 166
-:= -- 316
-add.period$ -- 11
++ -- 51
+- -- 46
+* -- 143
+:= -- 275
+add.period$ -- 9
 call.type$ -- 4
-change.case$ -- 37
+change.case$ -- 34
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 40
-empty$ -- 106
-format.name$ -- 50
-if$ -- 343
+cite$ -- 5
+duplicate$ -- 36
+empty$ -- 102
+format.name$ -- 46
+if$ -- 313
 int.to.chr$ -- 0
 int.to.str$ -- 4
-missing$ -- 3
-newline$ -- 22
-num.names$ -- 8
-pop$ -- 36
+missing$ -- 2
+newline$ -- 20
+num.names$ -- 6
+pop$ -- 42
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 31
 quote$ -- 0
-skip$ -- 30
+skip$ -- 31
 stack$ -- 0
-substring$ -- 101
+substring$ -- 76
 swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 16
-warning$ -- 0
-while$ -- 13
+warning$ -- 1
+while$ -- 9
 width$ -- 5
-write$ -- 43
+write$ -- 37
+(There was 1 warning)

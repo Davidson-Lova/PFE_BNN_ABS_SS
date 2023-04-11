@@ -83,36 +83,48 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 
 \section{Introduction}
 
+Aujourd'hui, les applications des modèles/algorithmes d'apprentissage machine à base
+de réseaux de neurones arrivent à accomplir des tâches variées et de plus 
+en plus complexes. Ce sont des modèles paramètriques souvent avec un nombre très 
+importants de paramètres à ajuster pendant la période d'entrainement. En fonction des
+conditions de l'entrainement du modèles (données d'entrainement, choix d'hypperamètres),
+ces paramètres ne seront pas les même et naturelement la sortie du modèle
+sera affecter par cette variabilité. Comme la fonction du modèle est de sortir la bonne
+sortie quand on introduit une entrée, il y a un besoin de savoir controler cette variabilité
+pour avoir une confiance au résultat du modèle. Ce travail va tenter de reproduire un 
+des méthodes qui tempte à controler cette variabilité, proposée dans cette article \cite{Fernndez2022}, 
+l'algorithme BNN-ABC-SS.
 
 
-\subsection{Réseau de neurones}
+\subsection{Réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}}}
 
-Un réseaux des neurones est un fonction qui prends ces arguments dans la couche de sorties et qui
-sort un résultat dans la couche d'entrée. Chaque couche est composé de cellule contenant des valeurs
-numériques. Un réseau de neurones Feed-Forward prends l'information dans la couche d'entrée,
-ensuite chaque couche applique une transformation à cette information jusqu'à la couche finale.
+Un réseaux des neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} est un fonction non linéaire paramétrée. La fonction 
+prends au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$, le transforme 
+à travers les couches cachées pour enfin sortir un vecteur de sortie $y \in \mathcal{Y}$ à la couche de sortie.
 
 \begin{figure}[H]
     \centerline{\includegraphics[width = 0.6\textwidth]{FNN/Images/fnn/fnn_page-0001.jpg}}
-    \caption{Schéma de réseaux}
+    \caption{Schéma de réseaux \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} \cite{NeetGraph}}
     \label{fig:fnn}
 \end{figure}
 
-La couche d'entrée prend la donnée d'entrée $x$, et la fait passer le long des couches cachées
-pour finalement arrivée à la couche de sortie. Ci-dessous on voit comment sont évaluer les valeurs
-pour chaque couche.
+Pour passer d'une couche à une autre chaque neurones $a^{(j + 1)}_s$ de la couche d'arrivée reçoit une contribution
+des neurones $\{a^{(j)}_i\}_{i = 1}^n$ de la couche de départ pondérés par les poids
+$\{w^{(j)}_{i,s}\}_{i = 1}^n$. Cette contribution sera biaisé (avec $b^{(j)}_s$) ensuite transformé par une fonction
+qu'on appelle $\textit{fonction d'activation}$ noté $\sigma$.
 
 \begin{figure}[H]
     \centerline{\includegraphics[width = 0.75\textwidth]{FNN/Images/fnnDetails/fnnDetails_page-0001.jpg}}
-    \caption{Feed Forward}
+    \caption{Passe d'une couche à la prochaine \cite{NeetGraph}}
     \label{fig:fnnDetails}
 \end{figure}
 
-Ces réseaux
+Pour la couche de sortie, en fonction des applications on choisit une fonction d'activation
+différente de ceux précédents (par exemple l'identité pour la regression et softmax pour la classification).
 
 \subsection{Source d'incertitudes dans un réseaux de neurones}
 
-On modélise le réseaux de neurones comme la fonction non linéaire
+On modélise le réseaux de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} comme la fonction non linéaire
 
 $$f : (x, \theta) \in \mathcal{X} \times \Theta \mapsto f(x, \theta) \in \mathcal{Y}$$
 
@@ -128,20 +140,23 @@ On se donne maintenant une base de données d'entrainement
 $D = \{ (x_i, y_i)\}_{i = 1}^N \in (\mathcal{X} \times \mathcal{Y})^N$.
 
 \subsubsection{Acquisition des données}
+
 Si on prend comme données d'entrées $x$ une mesure d'une quantité réel $\tilde{x}$.
 
 Il y a une variabilité sur la mesure en fonction des circonstances
-et conditions $\omega \in \Omega$ dans lequel la mesure a été effectué.
+et conditions $\omega \in \Omega$ dans lequel la mesure a été effectué en 
+plus de la précision de l'apareil de mesure.
 
 La sortie $y$ peut aussi subir des erreurs de labelisation
-(pour le cas d'une tâche de classification) ou aussi de mesure si c'est une quantité mesuré.
+(pour le cas d'une tâche de classification) ou aussi de mesure si c'est 
+une quantité mesuré ou issue d'une quantité mesuré.
 
 En somme on a une incertitude sur l'entrée $x | \omega \sim p_{x | \omega}$
 et $y | \omega \sim p_{y | \omega}$.
 
 S'ajoute à ça, l'incertitude sur $x$ qui peut se propager sur le $y$.
 
-\subsubsection{Structure du model}
+\subsubsection{Structure du modèle}
 
 Les paramètres $\theta$ et donc l'espace $\Theta$ est variable en fonction du choix de model $s$.
 
@@ -149,23 +164,19 @@ On a $\theta | D,s \sim p_{\theta | D, s}$
 
 \subsection{Prédiction}
 
-La distribution de la prédiction $y^*$ sachant une entrée $x^*$ est données par
+La prédiction faite à partir d'un réseau entrainé subi alors les incertitudes venant
+de ces sources. La distribution de la prédiction $y^*$ sachant une entrée $x^*$ est données par
 
 $$ p(y^* | x^*, D) = \int_{\Theta} \underbrace{p(y^* | x^*, \theta)}_{\text{Données}} \underbrace{p(\theta  | D)}_{\text{Modèle}} d \theta$$
 
 \subsubsection{Incertitude aléatoire}
 
-Insert definition here
-
-Elle affecte la partie $p(y^* | x^*, \theta)$ de la tâche de prédiction,
-elle est dus à la variabilité(précision et erreurs) lors des mesures.
-Elle est donnée et inhérent au problème.
+L'incertitude dite aléatoire est dus à la variabilité innée au données d'entrainement
+du modèle. Elle affecte la partie $p(y^* | x^*, \theta)$ de la tâche de prédiction.
 
 \subsubsection{Incertitude épistemique}
 
-Insert definition here
-
-Affecte la partie $p(\theta  | D)$ de la tâche de prédiction,
+L'incertitude epsitemique qffecte la partie $p(\theta  | D)$ de la tâche de prédiction,
 elle due :
 
 \begin{itemize}
@@ -182,22 +193,26 @@ elle due :
 % + Présentation de réseaux de neurones bayésiens
 
 Les réseaux de neurones bayésiens sont des réseaux de neurones
-dont les poids sont, non pas des quantités déterministes (comme
-dans le cas d'un NN normale) mais des distributions.
+dont les paramètres ($\theta = (w, b)$) sont, non pas des quantités déterministes (comme
+dans le cas d'un réseau de normales) mais des distributions de probabilité.
 
-A l'initialisation, les poids suivent une loi a priori $p(\theta)$,
+A l'initialisation, les paramètres suivent une loi a priori $p(\theta)$,
 et l'entrainement consiste à évaluer l'a posteriori de cette loi conditionnée
 aux données d'entrainement $p(\theta | D)$.
+
+Cette méthode permet de tenir compte de l'incertitude sur le modèle utilisé
+avec une structure donnée, car ici, il s'agit d'évaluer 
+une famille de modèle au lieu d'un seul.
 
 % + Donner son interet dans la résolution du problème précédent
 
 % + Donner les méthodes d'entrainement d'un tel réseaux
-On ne dispose pas dans le cas générale, d'une formule analytique de cette
-distribution a posteriori.
+Cependant, à cause de la taille et de la complexité de ces modèles
+on ne dispose pas, dans le cas générale, d'une formule analytique pour 
+calculer cette distribution a posteriori. Des méthodes numériques
+ont été développé pour calculer une approximation de cette distribution a posteriori.
 
-Voici trois familles de méthodes pour approcher cette distribution :
-
-
+Parmis ces méthodes on trouve :
 \begin{itemize}
     \item Méthodes variationelle
     \item Méthodes par échantillonage ou
@@ -211,21 +226,22 @@ Voici trois familles de méthodes pour approcher cette distribution :
 Ici on approche $p(\theta | D)$ par une famille de distribution
 paramétrique $\{q^{\gamma}(\theta)\}_{\gamma}$ (souvent des gaussiennes).
 Le but est de choisir $\gamma$ qui rapproche $q^{\gamma}(\theta)$
-le plus de $p(\theta | D)$. La distance choisit ici est la divergence
-de Kullback-Leibler :
+le plus de $p(\theta | D)$ au sens de la divergence de Kullback-Leibler :
 
 $$KL(q||p) = \mathbb{E}_q \left[\log \frac{q^{\gamma}(\theta)}{p(\theta | D)}\right]$$
 
-Comme on ne connait pas $p(\theta | D)$, on utilise l'ELBO (evidence lower bound)
+Comme on ne connait pas $p(\theta | D)$, on utilise l'ELBO (\textit{evidence lower bound})
 qui est égal à la divergence à une constante paramètres
 
 $$L =\mathbb{E}_q \left[\log \frac{p(y | D, \theta)}{q^{\gamma}(\theta)}\right]$$
 
 (on a en effet $KL(q||p) = -L +  \log p(y| D)$)
 
+On résout ici un problème d'optimisation.
+
 \subsection{Méthode de Laplace}
 
-$\hat{\theta}$ l'estimateur de maximum d'a priori
+$\hat{\theta}$ l'estimateur de maximum d'a priori.
 
 $$\log p(\theta | D) \approx \log p(\hat{\theta} | D)
     + \frac{1}{2} (\theta - \hat{\theta})^T (H + \tau I)
@@ -233,7 +249,7 @@ $$\log p(\theta | D) \approx \log p(\hat{\theta} | D)
 
 $$p(\theta | D) \sim \mathcal{N}(\hat{\theta}, (H + \tau I)^{-1})$$
 
-\subsection{Méthodes par échantillonage ou Monte Carlo}
+\subsection{Méthodes par échantillonage ou \href{https://en.wikipedia.org/wiki/Monte_Carlo_method}{Monte Carlo}}
 
 La formule de Bayes nous donne
 
@@ -245,11 +261,13 @@ $$p(\theta | D) = \frac{p(D | \theta) }{p(D)}p(\theta)$$
     \item $p(D)$ la distribution des données d'entrainement.
 \end{itemize}
 
+Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités.
+
 \pagebreak
 
 \section{Algorithme BNN-ABC-SS}
 
-\subsection{ABC (Approximate Bayesian Computation)}
+\subsection{ABC (\href{https://en.wikipedia.org/wiki/Approximate_Bayesian_computation}{\textit{Approximate Bayesian Computation}})}
 
 La méthode ABC consiste à evaluer $p(\theta | D)$ sans évaluer
 la vraissemblance qui peut s'avérer couteux.
@@ -303,7 +321,7 @@ Cependant lors de l'algorithme de rejet, tirer les $\theta$ de manière généri
 ce qui fait que l'approximation est prend beaucoup de temps à converger. On utilise alors SS (Subset Simulation)
 pour faire des tirages plus fins.
 
-\subsection{SS (Subset Simulation)}
+\subsection{SS (\href{https://en.wikipedia.org/wiki/Subset_simulation}{\textit{Subset Simulation}})}
 
 Soient $\epsilon_1 > \epsilon_2 > ... >\epsilon_m = \epsilon$ des seuils.
 
@@ -403,26 +421,28 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
     % }
 \end{algorithm}
 
-Pour la génénation des chaines de markov dans l'espace $\mathcal{N}_{\epsilon_{j}} (D)$, On utilise l'Algorithme
-'Modified Monte Carlo' \cite{Chiachio2014, Modified_MCMC}.
+% + A voir si on rajoute ou pas
 
-On se donne une distribution de proposition $q(.|.)$ et au niveau $j$, à l'étape $n$ de la chaine :
+% Pour la génénation des chaines de markov dans l'espace $\mathcal{N}_{\epsilon_{j}} (D)$, On utilise l'Algorithme
+% 'Modified Monte Carlo' \cite{Chiachio2014, Modified_MCMC}.
 
-\begin{itemize}
-    \item On genère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
-    \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec un probabilité :
+% On se donne une distribution de proposition $q(.|.)$ et au niveau $j$, à l'étape $n$ de la chaine :
 
-          $\alpha = \min \left\{ 1, \frac{p(\theta') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}\mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (x')$
+% \begin{itemize}
+%     \item On genère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
+%     \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec un probabilité :
 
-    \item Sinon $(\theta^{(n)}, x^{(n)}) = (\theta^{(n-1)}, x^{(n-1)})$
-\end{itemize}
+%           $\alpha = \min \left\{ 1, \frac{p(\theta') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}\mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (x')$
+
+%     \item Sinon $(\theta^{(n)}, x^{(n)}) = (\theta^{(n-1)}, x^{(n-1)})$
+% \end{itemize}
 
 
-Dans les exemples qu'on va prendre après, on a pris
-\begin{itemize}
-    \item $p(\theta)$ est la densité de la distribution $\mathcal{N}(0, I)$
-    \item $q(. | b)$ est celle de $ \mathcal{N}(b, \sigma_0)$
-\end{itemize}
+% Dans les exemples qu'on va prendre après, on a pris
+% \begin{itemize}
+%     \item $p(\theta)$ est la densité de la distribution $\mathcal{N}(0, I)$
+%     \item $q(. | b)$ est celle de $ \mathcal{N}(b, \sigma_0)$
+% \end{itemize}
 
 
 \pagebreak
@@ -450,7 +470,8 @@ fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.9\textwidth]{../plots/plotCos-11-04-2023_08-47-51.png}
+    \subfigure[listentry][Données d'entrainement]{\includegraphics[width = 0.48\textwidth]{../plots/CosPlot.png}}
+    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/plotCos-11-04-2023_08-47-51.png}}
     \caption[short]{Résultat de l'algorithme BNN-ABC-SS}
 \end{figure}
 
@@ -470,7 +491,7 @@ fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation.
     \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
     \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,2}$};
 \end{tikzpicture}
-\caption{distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,2}$}
+\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,2}$}
 
 \end{figure}
 
@@ -490,6 +511,7 @@ fait 286 paramètres avec la fonction ReLu comme fonction d'activation.
     \includegraphics[width = 0.4\textwidth]{FNN/Images/fnnSin/fnnSin_page-0001.jpg}
     \caption[short]{Réseau de neurones pour la fonction $\sin$}
 \end{figure}
+
 
 
 \subsection{Maybe more}

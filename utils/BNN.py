@@ -118,8 +118,8 @@ class FNN(nn.Module):
         """
         for i in range(self.nbLayers - 2):
             x = self.funclist[i](x)
-            # x = torch.tanh(x)
-            x = torch.relu(x)
+            x = torch.tanh(x)
+            # x = torch.relu(x)
         x = self.funclist[self.nbLayers - 2](x)
         return x
 
@@ -302,13 +302,13 @@ def plotTubeMedian(XT, y, thetas, ns):
     q75 = y_hats.quantile(0.75, 1).reshape(y.shape).detach().numpy()
 
     plt.fill_between(XT.ravel(), q2_5[:, 0],
-                     q97_5[:, 0], alpha=0.5, color='gray')
+                     q97_5[:, 0], alpha=0.5, color='gray',  label = '95%')
     plt.fill_between(XT.ravel(), q25[:, 0], q75[:, 0],
-                     alpha=0.5, color='k', label='IQR')
+                     alpha=0.5, color='k', label='50%')
     plt.plot(XT, y_hats.quantile(0.5, 1).reshape(
-        y.shape).detach().numpy(), label="Median", color='r')
+        y.shape).detach().numpy(), label="Médiane", color='r')
 
-    plt.scatter(XT, y, marker='+', color='k', label='Training data')
+    plt.scatter(XT, y, marker='+', color='k', label='Données d\'entrainement')
     plt.ylim(ymin - 0.01*yspan, ymax + 0.01*yspan)
     plt.legend()
 
@@ -349,14 +349,14 @@ def plotTubeMedianBig(XT, XTBig, y, thetas, ns, c):
     mediane = y_hats.quantile(0.5, 1).reshape(
         XTBig.shape).detach().numpy()
     plt.fill_between(XTBig.ravel(), q2_5[:, 0],
-                    q97_5[:, 0], alpha=0.5, color='gray')
+                    q97_5[:, 0], alpha=0.5, color='gray', label = '95%')
 
     plt.fill_between(XTBig.ravel(), q25[:, 0], q75[:, 0],
-                    alpha=0.5, color='k', label='IQR')
+                    alpha=0.5, color='k', label='50%')
 
-    plt.plot(XTBig, mediane, label="Median", color='r')
+    plt.plot(XTBig, mediane, label="Médiane", color='r')
 
-    plt.scatter(XT, y, marker='+', color='k', label='Training data')
+    plt.scatter(XT, y, marker='+', color='k', label='Données')
     plt.ylim(ymin - c*yspan, ymax + c*yspan)
     plt.legend()
 

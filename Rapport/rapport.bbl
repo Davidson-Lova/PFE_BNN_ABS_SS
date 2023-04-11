@@ -1,11 +1,7 @@
 \begin{thebibliography}{1}
 
-\bibitem{Modified_MCMC}
-Siu-Kui Au and James~L. Beck.
-\newblock Estimation of small failure probabilities in high dimensions by
-  subset simulation.
-\newblock {\em Probabilistic Engineering Mechanics}, 16(4):263--277, October
-  2001.
+\bibitem{NeetGraph}
+\url{https://tikz.net/neural_networks/}.
 
 \bibitem{Chiachio2014}
 Manuel Chiachio, James~L. Beck, Juan Chiachio, and Guillermo Rus.

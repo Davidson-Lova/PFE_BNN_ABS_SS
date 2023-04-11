@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  11 APR 2023 11:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  11 APR 2023 15:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -730,78 +730,83 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout5 = `rapport.toc'.
 
  [2]
-<FNN/Images/fnn/fnn_page-0001.jpg, id=125, 348.3414pt x 193.4427pt>
+<FNN/Images/fnn/fnn_page-0001.jpg, id=133, 348.3414pt x 193.4427pt>
 File: FNN/Images/fnn/fnn_page-0001.jpg Graphic file (type jpg)
 <use FNN/Images/fnn/fnn_page-0001.jpg>
-Package pdftex.def Info: FNN/Images/fnn/fnn_page-0001.jpg  used on input line 96.
+Package pdftex.def Info: FNN/Images/fnn/fnn_page-0001.jpg  used on input line 106.
 (pdftex.def)             Requested size: 266.14978pt x 147.80902pt.
-<FNN/Images/fnnDetails/fnnDetails_page-0001.jpg, id=126, 379.6584pt x 229.3368pt>
+<FNN/Images/fnnDetails/fnnDetails_page-0001.jpg, id=136, 379.6584pt x 229.3368pt>
 File: FNN/Images/fnnDetails/fnnDetails_page-0001.jpg Graphic file (type jpg)
 <use FNN/Images/fnnDetails/fnnDetails_page-0001.jpg>
-Package pdftex.def Info: FNN/Images/fnnDetails/fnnDetails_page-0001.jpg  used on input line 106.
+Package pdftex.def Info: FNN/Images/fnnDetails/fnnDetails_page-0001.jpg  used on input line 117.
 (pdftex.def)             Requested size: 332.68385pt x 200.95966pt.
- [3 <./FNN/Images/fnn/fnn_page-0001.jpg> <./FNN/Images/fnnDetails/fnnDetails_page-0001.jpg>] [4] [5]
-Overfull \hbox (2.36891pt too wide) in paragraph at lines 284--286
+ [3 <./FNN/Images/fnn/fnn_page-0001.jpg>] [4 <./FNN/Images/fnnDetails/fnnDetails_page-0001.jpg>] [5] [6] [7]
+Overfull \hbox (2.36891pt too wide) in paragraph at lines 302--304
 []\T1/cmr/m/n/12 On note $\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R; []\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 D\OT1/cmr/m/n/12 )$ \T1/cmr/m/n/12 la dis-tri-bu-tion is-sue du ti-rage pré-cé-dent, et qui ap-proche $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R; []\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 D\OT1/cmr/m/n/12 )$\T1/cmr/m/n/12 ,
  []
 
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 287.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 305.
 (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [6] [7] [8]
-<FNN/Images/fnnCos/fnnCos_page-0001.jpg, id=179, 211.7511pt x 107.80475pt>
+) [8] [9] [10]
+<FNN/Images/fnnCos/fnnCos_page-0001.jpg, id=201, 211.7511pt x 107.80475pt>
 File: FNN/Images/fnnCos/fnnCos_page-0001.jpg Graphic file (type jpg)
 <use FNN/Images/fnnCos/fnnCos_page-0001.jpg>
-Package pdftex.def Info: FNN/Images/fnnCos/fnnCos_page-0001.jpg  used on input line 446.
+Package pdftex.def Info: FNN/Images/fnnCos/fnnCos_page-0001.jpg  used on input line 466.
 (pdftex.def)             Requested size: 177.42868pt x 90.33pt.
-<../plots/plotCos-11-04-2023_08-47-51.png, id=180, 462.528pt x 346.896pt>
+<../plots/CosPlot.png, id=202, 462.528pt x 346.896pt>
+File: ../plots/CosPlot.png Graphic file (type png)
+<use ../plots/CosPlot.png>
+Package pdftex.def Info: ../plots/CosPlot.png  used on input line 473.
+(pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
+<../plots/plotCos-11-04-2023_08-47-51.png, id=204, 462.528pt x 346.896pt>
 File: ../plots/plotCos-11-04-2023_08-47-51.png Graphic file (type png)
 <use ../plots/plotCos-11-04-2023_08-47-51.png>
-Package pdftex.def Info: ../plots/plotCos-11-04-2023_08-47-51.png  used on input line 453.
-(pdftex.def)             Requested size: 399.21791pt x 299.42572pt.
-<../plots/plotWeight-11-04-2023_08-47-51--0.png, id=182, 462.528pt x 346.896pt>
+Package pdftex.def Info: ../plots/plotCos-11-04-2023_08-47-51.png  used on input line 474.
+(pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
+<../plots/plotWeight-11-04-2023_08-47-51--0.png, id=205, 462.528pt x 346.896pt>
 File: ../plots/plotWeight-11-04-2023_08-47-51--0.png Graphic file (type png)
 <use ../plots/plotWeight-11-04-2023_08-47-51--0.png>
-Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--0.png  used on input line 459.
+Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--0.png  used on input line 480.
 (pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
-<../plots/plotWeight-11-04-2023_08-47-51--1.png, id=183, 462.528pt x 346.896pt>
+<../plots/plotWeight-11-04-2023_08-47-51--1.png, id=206, 462.528pt x 346.896pt>
 File: ../plots/plotWeight-11-04-2023_08-47-51--1.png Graphic file (type png)
 <use ../plots/plotWeight-11-04-2023_08-47-51--1.png>
-Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--1.png  used on input line 460.
+Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--1.png  used on input line 481.
 (pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
-<../plots/plotWeight-11-04-2023_08-47-51--2.png, id=184, 462.528pt x 346.896pt>
+<../plots/plotWeight-11-04-2023_08-47-51--2.png, id=207, 462.528pt x 346.896pt>
 File: ../plots/plotWeight-11-04-2023_08-47-51--2.png Graphic file (type png)
 <use ../plots/plotWeight-11-04-2023_08-47-51--2.png>
-Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--2.png  used on input line 461.
+Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--2.png  used on input line 482.
 (pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
- [9 <./FNN/Images/fnnCos/fnnCos_page-0001.jpg> <../plots/plotCos-11-04-2023_08-47-51.png>]
-<../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png, id=194, 433.62pt x 433.62pt>
+ [11 <./FNN/Images/fnnCos/fnnCos_page-0001.jpg> <../plots/CosPlot.png> <../plots/plotCos-11-04-2023_08-47-51.png>]
+<../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png, id=221, 433.62pt x 433.62pt>
 File: ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png Graphic file (type png)
 <use ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png>
-Package pdftex.def Info: ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png  used on input line 469.
+Package pdftex.def Info: ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png  used on input line 490.
 (pdftex.def)             Requested size: 266.14978pt x 266.16194pt.
-<FNN/Images/fnnSin/fnnSin_page-0001.jpg, id=195, 280.1667pt x 142.131pt>
+<FNN/Images/fnnSin/fnnSin_page-0001.jpg, id=222, 280.1667pt x 142.131pt>
 File: FNN/Images/fnnSin/fnnSin_page-0001.jpg Graphic file (type jpg)
 <use FNN/Images/fnnSin/fnnSin_page-0001.jpg>
-Package pdftex.def Info: FNN/Images/fnnSin/fnnSin_page-0001.jpg  used on input line 490.
+Package pdftex.def Info: FNN/Images/fnnSin/fnnSin_page-0001.jpg  used on input line 511.
 (pdftex.def)             Requested size: 177.42868pt x 90.0136pt.
- [10 <../plots/plotWeight-11-04-2023_08-47-51--0.png> <../plots/plotWeight-11-04-2023_08-47-51--1.png> <../plots/plotWeight-11-04-2023_08-47-51--2.png> <../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png>] [11 <./FNN/Images/fnnSin/fnnSin_page-0001.jpg>] [12] (./rapport.bbl) [13] (./rapport.aux)
+ [12 <../plots/plotWeight-11-04-2023_08-47-51--0.png> <../plots/plotWeight-11-04-2023_08-47-51--1.png> <../plots/plotWeight-11-04-2023_08-47-51--2.png> <../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png>] [13 <./FNN/Images/fnnSin/fnnSin_page-0001.jpg>] [14] (./rapport.bbl) [15] (./rapport.aux)
 Package rerunfilecheck Info: File `rapport.out' has not changed.
-(rerunfilecheck)             Checksum: 4CD9C1231FBB8934649156A3C41AB22D;3664.
+(rerunfilecheck)             Checksum: AD8B07F15383DAC4739934A90603E3A4;3735.
  ) 
 Here is how much of TeX's memory you used:
- 26545 strings out of 478287
- 484891 string characters out of 5849288
- 792430 words of memory out of 5000000
- 44232 multiletter control sequences out of 15000+600000
- 486982 words of font info for 78 fonts, out of 8000000 for 9000
+ 26565 strings out of 478287
+ 485183 string characters out of 5849288
+ 791551 words of memory out of 5000000
+ 44243 multiletter control sequences out of 15000+600000
+ 489367 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,15n,89p,490b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on rapport.pdf (13 pages, 1602614 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on rapport.pdf (15 pages, 1673658 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 261 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 226 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 372 PDF objects out of 1000 (max. 8388607)
+ 289 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 231 words of extra memory for PDF output out of 10000 (max. 10000000)
 
