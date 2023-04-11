@@ -79,13 +79,15 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 \pagebreak
 
 \section{Introduction}
-Incertitudes utile dans plusieurs domaines et la quantification duquel
-est nécessaire pour des évaluations de risques, déctection d'anomalie et prise décision.
+
+
 
 \subsection{Réseau de neurones}
 
-Un réseaux de neurones est composé d'une couché d'entrée, des couches cachés
-et une couche de sortie.
+Un réseaux des neurones est un fonction qui prends ces arguments dans la couche de sorties et qui
+sort un résultat dans la couche d'entrée. Chaque couche est composé de cellule contenant des valeurs
+numériques. Un réseau de neurones Feed-Forward prends l'information dans la couche d'entrée,
+ensuite chaque couche applique une transformation à cette information jusqu'à la couche finale.
 
 \begin{figure}[H]
     \centerline{\includegraphics[width = 0.6\textwidth]{FNN/Images/fnn/fnn_page-0001.jpg}}
@@ -103,9 +105,7 @@ pour chaque couche.
     \label{fig:fnnDetails}
 \end{figure}
 
-+ Quelque résultats et application
-
-+ Ce qui nous amène à un problème
+Ces réseaux
 
 \subsection{Source d'incertitudes dans un réseaux de neurones}
 
@@ -401,6 +401,28 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
     %     }
     % }
 \end{algorithm}
+
+Pour la génénation des chaines de markov dans l'espace $\mathcal{N}_{\epsilon_{j}} (D)$, On utilise l'Algorithme
+'Modified Monte Carlo' \cite{Chiachio2014, Modified_MCMC}.
+
+On se donne une distribution de proposition $q(.|.)$ et au niveau $j$, à l'étape $n$ de la chaine : 
+
+\begin{itemize}
+    \item On genère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
+    \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec un probabilité :
+   
+    $\alpha = \min \left\{ 1, \frac{p(\theta') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}\mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (x')$
+
+    \item Sinon $(\theta^{(n)}, x^{(n)}) = (\theta^{(n-1)}, x^{(n-1)})$
+
+\end{itemize}
+
+
+Dans les exemples qu'on va prendre après, on a pris 
+\begin{itemize}
+    \item $p(\theta)$ est la densité de la distribution $\mathcal{N}(0, I)$
+    \item $q(. | b)$ est celle de $ \mathcal{N}(b, \sigma_0)$
+\end{itemize}
 
 
 \pagebreak
