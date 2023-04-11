@@ -3,8 +3,8 @@ INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnn.tex
-OUTPUT fnn.log
+INPUT /home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnnCos.tex
+OUTPUT fnnCos.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
@@ -387,10 +387,10 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT ./fnn.aux
-INPUT fnn.aux
-INPUT fnn.aux
-OUTPUT fnn.aux
+INPUT ./fnnCos.aux
+INPUT fnnCos.aux
+INPUT fnnCos.aux
+OUTPUT fnnCos.aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -410,7 +410,7 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-OUTPUT fnn.pdf
+OUTPUT fnnCos.pdf
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
-INPUT fnn.aux
+INPUT fnnCos.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  4 APR 2023 15:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  11 APR 2023 10:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnn.tex
-(/home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnn.tex
+**/home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnnSin.tex
+(/home/davidson/Documents/IngMacs/MACS3_M2/Macs/PFE/PFE_BNN_ABS_SS/Rapport/FNN/fnnSin.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
 Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files standalone
@@ -266,8 +266,8 @@ Package: listofitems 2019/08/21 v1.63 Grab items in lists using user-specified s
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count286
 \l__pdf_internal_box=\box62
-) (./fnn.aux)
-\openout1 = `fnn.aux'.
+) (./fnnSin.aux)
+\openout1 = `fnnSin.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
@@ -303,22 +303,22 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 59.
+(Font)              <7> on input line 61.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 59.
+(Font)              <5> on input line 61.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./fnn.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./fnnSin.aux) ) 
 Here is how much of TeX's memory you used:
- 13227 strings out of 478287
- 271848 string characters out of 5849288
- 584309 words of memory out of 5000000
- 31220 multiletter control sequences out of 15000+600000
+ 13122 strings out of 478287
+ 270186 string characters out of 5849288
+ 540701 words of memory out of 5000000
+ 31115 multiletter control sequences out of 15000+600000
  469259 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 115i,7n,118p,483b,858s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 115i,7n,118p,486b,844s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on fnn.pdf (1 page, 18521 bytes).
+Output written on fnnSin.pdf (1 page, 15938 bytes).
 PDF statistics:
  16 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
