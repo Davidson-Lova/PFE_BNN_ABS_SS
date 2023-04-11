@@ -459,7 +459,8 @@ une discrétisation uniforme de $[-3, 3]$ et $y(x) = \cos(x) + \zeta$ où $\zeta
 Les paramètres de l'algorithme $N : 5000$, $l_{max} : 6$, $P_0 : 0.2$ et $\epsilon : 0.1$.
 
 Le réseau de neurones pris ici a une couche d'entrée, un couche cachée à deux cellules et une couche de sortie ce qui
-fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation.
+fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation. La mesure de dissimilarité
+choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
 
 \begin{figure}[H]
     \centering
@@ -503,13 +504,41 @@ une discrétisation uniforme de $[-0.5, 0.5]$ et $y(x) = 10 \sin(2 \pi x) + \zet
 Les paramètres de l'algorithme $N : 20000$, $l_{max} : 8$, $P_0 : 0.1$ et $\epsilon : 0.1$.
 
 Le réseau de neurones pris ici a une couche d'entrée, deux couche cachées à 15 cellules et une couche de sortie ce qui
-fait 286 paramètres avec la fonction ReLu comme fonction d'activation.
+fait 286 paramètres avec la fonction ReLu comme fonction d'activation. La mesure de dissimilarité
+choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width = 0.4\textwidth]{FNN/Images/fnnSin/fnnSin_page-0001.jpg}
     \caption[short]{Réseau de neurones pour la fonction $\sin$}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Données d'entrainement]{\includegraphics[width = 0.48\textwidth]{../plots/SinPlot.png}}
+    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/plotSin-11-04-2023_13-51-30.png}}
+    \caption[short]{Résultat de l'algorithme BNN-ABC-SS}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--153.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--170.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--199.png}}
+    \caption[short]{Exemple de distribution a posteriori des poids et biais}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJoint-11-04-2023_13-51-30--0&47.png}};
+    \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
+    \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(2)}_{2,2}$};
+\end{tikzpicture}
+\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(2)}_{2,2}$}
+
 \end{figure}
 
 
