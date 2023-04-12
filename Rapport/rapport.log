@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  12 APR 2023 11:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  12 APR 2023 15:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -759,10 +759,10 @@ File: ../plots/CosPlot.png Graphic file (type png)
 <use ../plots/CosPlot.png>
 Package pdftex.def Info: ../plots/CosPlot.png  used on input line 463.
 (pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
-<../plots/plotCos-11-04-2023_08-47-51.png, id=211, 462.528pt x 346.896pt>
-File: ../plots/plotCos-11-04-2023_08-47-51.png Graphic file (type png)
-<use ../plots/plotCos-11-04-2023_08-47-51.png>
-Package pdftex.def Info: ../plots/plotCos-11-04-2023_08-47-51.png  used on input line 464.
+<../plots/plotCosRes2-11-04-2023_08-47-51.png, id=211, 462.528pt x 346.896pt>
+File: ../plots/plotCosRes2-11-04-2023_08-47-51.png Graphic file (type png)
+<use ../plots/plotCosRes2-11-04-2023_08-47-51.png>
+Package pdftex.def Info: ../plots/plotCosRes2-11-04-2023_08-47-51.png  used on input line 464.
 (pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
 <../plots/plotWeight-11-04-2023_08-47-51--0.png, id=212, 462.528pt x 346.896pt>
 File: ../plots/plotWeight-11-04-2023_08-47-51--0.png Graphic file (type png)
@@ -779,7 +779,7 @@ File: ../plots/plotWeight-11-04-2023_08-47-51--2.png Graphic file (type png)
 <use ../plots/plotWeight-11-04-2023_08-47-51--2.png>
 Package pdftex.def Info: ../plots/plotWeight-11-04-2023_08-47-51--2.png  used on input line 472.
 (pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
- [11 <./FNN/Images/fnnCos/fnnCos_page-0001.jpg> <../plots/CosPlot.png> <../plots/plotCos-11-04-2023_08-47-51.png>]
+ [11 <./FNN/Images/fnnCos/fnnCos_page-0001.jpg> <../plots/CosPlot.png> <../plots/plotCosRes2-11-04-2023_08-47-51.png>]
 <../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png, id=227, 433.62pt x 433.62pt>
 File: ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png Graphic file (type png)
 <use ../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png>
@@ -833,14 +833,14 @@ Package rerunfilecheck Info: File `rapport.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  26629 strings out of 478287
- 487927 string characters out of 5849288
+ 487955 string characters out of 5849288
  793621 words of memory out of 5000000
  44287 multiletter control sequences out of 15000+600000
  489367 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,15n,89p,490b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on rapport.pdf (17 pages, 1832693 bytes).
+Output written on rapport.pdf (17 pages, 1819952 bytes).
 PDF statistics:
  413 PDF objects out of 1000 (max. 8388607)
  313 compressed objects within 4 object streams

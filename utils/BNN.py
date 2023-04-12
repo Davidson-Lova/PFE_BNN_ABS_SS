@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import time
+import openturns as ot
 
 
 def segment(theta, ns):
@@ -302,11 +303,10 @@ def plotTubeMedian(XT, y, thetas, ns):
     q75 = y_hats.quantile(0.75, 1).reshape(y.shape).detach().numpy()
 
     plt.fill_between(XT.ravel(), q2_5[:, 0],
-                     q97_5[:, 0], alpha=0.5, color='gray',  label = '95%')
-    plt.fill_between(XT.ravel(), q25[:, 0], q75[:, 0],
-                     alpha=0.5, color='k', label='50%')
+                     q97_5[:, 0], color="#e8e8e8",  label = '95%')
+    plt.fill_between(XT.ravel(), q25[:, 0], q75[:, 0], color="#bfbfbf", label='50%')
     plt.plot(XT, y_hats.quantile(0.5, 1).reshape(
-        y.shape).detach().numpy(), label="Médiane", color='r')
+        y.shape).detach().numpy(), label="Médiane", color="#8c0e11")
 
     plt.scatter(XT, y, marker='+', color='k', label='Données d\'entrainement')
     plt.ylim(ymin - 0.01*yspan, ymax + 0.01*yspan)
@@ -349,19 +349,149 @@ def plotTubeMedianBig(XT, XTBig, y, thetas, ns, c):
     mediane = y_hats.quantile(0.5, 1).reshape(
         XTBig.shape).detach().numpy()
     plt.fill_between(XTBig.ravel(), q2_5[:, 0],
-                    q97_5[:, 0], alpha=0.5, color='gray', label = '95%')
+                    q97_5[:, 0],color="#e8e8e8", label = '95%')
 
     plt.fill_between(XTBig.ravel(), q25[:, 0], q75[:, 0],
-                    alpha=0.5, color='k', label='50%')
+                    color="#bfbfbf", label='50%')
 
-    plt.plot(XTBig, mediane, label="Médiane", color='r')
+    plt.plot(XTBig, mediane, label="Médiane", color='#8c0e11')
 
     plt.scatter(XT, y, marker='+', color='k', label='Données')
     plt.ylim(ymin - c*yspan, ymax + c*yspan)
     plt.legend()
 
 
-def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
+# def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
+#     """ BNN_ABC_SS
+#     Renvoie un population de taille N de thetas (poids)
+#     qui sont les meilleurs à approcher la fonction à approcher
+#     ce qui permet d'approcher la distribution a posteriori des poids par rapport au données
+
+#     Parameters
+#     ----------
+#     N : int
+#         La taille de la population
+#     l : int
+#         Le nombre d'itération 
+#     P0 : float
+#         Le part de la population gardé
+#     epsilon : float
+#         Le seuil minimal à respecter sur l'erreur
+#     sigma_0 : float
+#         La variance initiale de la distribution a priori
+#     fact : float
+#         Un facteur
+#     ns : list 
+#         La liste qui contient le nombre de cellules par couches
+#     XT : torch.Tensor
+#         Le vecteur d'entrée
+#     y : torch.Tensor
+#         Le vecteur de sortie bruité
+
+#     Returns
+#     -------
+#     thetas : list of torch.Tensor
+#         Une liste de taille N, the theta
+#     rho_n : torch.Tensor
+#         Le tenseur qui contient les erreurs finals
+
+#     """
+#     # Temperature initiale
+#     T = 30
+
+#     # Ici on commence l'algorithm BNN-ABC-SS
+#     NP0 = int(N*P0)
+#     invP0 = int(1/P0)
+#     lll = modelSize(ns)
+
+#     # Distance qui va être utiliser pour évaluer
+#     # la dissimilarité entre les prédictions y_hat et la réponse y
+#     pdist = 2
+
+#     # L'a priopri gaussien N(0, I) pour les poids
+#     thetas = torch.randn(lll, N)
+
+#     # On evalue tout ça
+#     y_hats = torch.concat(
+#         tuple([FNN(ns, thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
+
+#     # On calcul la dissimilarité
+#     rho_n = torch.cdist(y_hats.t(), y.t(), p=pdist)
+
+#     # On fixe un petit truc qui va être utile après
+#     # c'est en fait le pas
+#     sigma_j = sigma_0
+
+#     # # Pour du débugage on ne fait pas attention
+#     # # Relative learning rate
+#     # lr = []
+#     # stop = []
+
+#     # Iteration
+#     l_eps = []
+#     TOld = T
+#     for j in range(0, l):
+
+#         # On trie les erreurs et on mets les poids dans
+#         # l'ordre croissant des érreurs qu'ils produisent
+#         rho_n, indices = torch.sort(rho_n, 0)
+#         thetas = thetas[:, indices.t()[0]]
+
+#         epsilon_j = rho_n[NP0]
+
+#         # # Lr
+#         # rho_nOld = rho_n
+
+#         # Ici on a un échantillion de taille NP0 et on veut
+#         # en créer N à partir de cette échantillion en fesant
+#         # (invPO - 1) pas
+#         thetasSeeds = thetas[:, :NP0]
+#         rhoSeeds = rho_n[:NP0]
+
+#         # Réglage de la température
+#         Tcur = TOld
+
+#         # Réglage de sigma_j
+#         sigma_j = sigma_0
+
+#         #
+#         thetas = thetasSeeds
+#         rho_n = rho_n[:NP0]
+
+#         for g in range(invP0 - 1):
+#             # for debugging purposes
+#             l_eps.append(epsilon_j)
+#             thetasResamples = torch.normal(thetasSeeds, sigma_j)
+
+#             # On evalue les erreurs
+#             y_hatsResamples = torch.concat(
+#                 tuple([FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
+#             rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
+
+#             # On évalue l'amélioration
+#             ameRho = rho_nResamples - rhoSeeds
+#             ameTheta = thetasResamples - thetasSeeds
+
+#             # On voit si on avance dans le sens du gradient ou pas
+#             # Si il y a une amélioration on avance
+#             # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
+#             avanceOuNon = torch.bernoulli(
+#                 1 / (1 + torch.exp(- (1/Tcur) * (ameRho))))
+#             avanceOuNon[ameRho > 0] = 1
+
+#             # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
+#             mask = torch.diag(avanceOuNon[:, 0].float())
+
+#             #
+#             thetasSeeds = thetasResamples - torch.matmul(ameTheta, mask)
+#             thetas = torch.concatenate((thetas, thetasSeeds), 1)
+#             rhoSeeds = rho_nResamples
+#             rho_n = torch.concatenate((rho_n, rhoSeeds))
+
+#     return thetas, rho_n
+
+
+def BnnAbcSs(N, lmax, P0, epsilon, sigma_0, ns, Temp, pdist, XT, y):
     """ BNN_ABC_SS
     Renvoie un population de taille N de thetas (poids)
     qui sont les meilleurs à approcher la fonction à approcher
@@ -379,10 +509,12 @@ def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
         Le seuil minimal à respecter sur l'erreur
     sigma_0 : float
         La variance initiale de la distribution a priori
-    fact : float
-        Un facteur
     ns : list 
         La liste qui contient le nombre de cellules par couches
+    pdist : int
+        La distance utilisé dans la dissimilarité
+    Temp : float
+        La température initiale
     XT : torch.Tensor
         Le vecteur d'entrée
     y : torch.Tensor
@@ -392,28 +524,24 @@ def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
     -------
     thetas : list of torch.Tensor
         Une liste de taille N, the theta
-    rho_n : torch.Tensor
+    rhos : torch.Tensor
         Le tenseur qui contient les erreurs finals
 
-    """
-    # Temperature initiale
-    T = 30
+    """    
+    # Notre modèle
+    myModel = FNN(ns)
 
-    # Ici on commence l'algorithm BNN-ABC-SS
     NP0 = int(N*P0)
     invP0 = int(1/P0)
-    lll = modelSize(ns)
+    myModelSize = modelSize(ns)
 
-    # Distance qui va être utiliser pour évaluer
-    # la dissimilarité entre les prédictions y_hat et la réponse y
-    pdist = 2
-
-    # L'a priopri gaussien N(0, I) pour les poids
-    thetas = torch.randn(lll, N)
+    thetaPrior = ot.Normal(0, sigma_0)
+    
+    thetas = torch.randn(myModelSize, N) * sigma_0
 
     # On evalue tout ça
     y_hats = torch.concat(
-        tuple([FNN(ns, thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
+        tuple([myModel.update_weights(thetas[:, i]).forward(XT) for i in range(0, N)]), 1)
 
     # On calcul la dissimilarité
     rho_n = torch.cdist(y_hats.t(), y.t(), p=pdist)
@@ -422,25 +550,25 @@ def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
     # c'est en fait le pas
     sigma_j = sigma_0
 
-    # # Pour du débugage on ne fait pas attention
-    # # Relative learning rate
-    # lr = []
-    # stop = []
+    # Relative learning rate
+    rhoMin = []
+    rhoMax = []
+
 
     # Iteration
-    l_eps = []
-    TOld = T
-    for j in range(0, l):
+    j = 0
+    while (rho_n[0, 0] > epsilon):
 
         # On trie les erreurs et on mets les poids dans
         # l'ordre croissant des érreurs qu'ils produisent
         rho_n, indices = torch.sort(rho_n, 0)
+
+        rhoMin.append(str(np.float32(torch.min(rho_n).detach())))
+        rhoMax.append(str(np.float32(torch.max(rho_n).detach())))
+
         thetas = thetas[:, indices.t()[0]]
 
         epsilon_j = rho_n[NP0]
-
-        # # Lr
-        # rho_nOld = rho_n
 
         # Ici on a un échantillion de taille NP0 et on veut
         # en créer N à partir de cette échantillion en fesant
@@ -448,44 +576,63 @@ def BnnAbcSs(N, l, P0, epsilon, sigma_0, fact, ns, XT, y):
         thetasSeeds = thetas[:, :NP0]
         rhoSeeds = rho_n[:NP0]
 
-        # Réglage de la température
-        Tcur = TOld
-
         # Réglage de sigma_j
-        sigma_j = sigma_0
+        sigma_j = sigma_0 - 0.1 * lmax
 
         #
         thetas = thetasSeeds
         rho_n = rho_n[:NP0]
 
+        # Réglage de la température
+        TempCur = Temp
         for g in range(invP0 - 1):
-            # for debugging purposes
-            l_eps.append(epsilon_j)
-            thetasResamples = torch.normal(thetasSeeds, sigma_j)
+            # thetasResamples = torch.normal(thetasSeeds, sigma_j)
+            thetasResamples = thetasSeeds + \
+                torch.randn(thetasSeeds.shape) * sigma_j
 
+            # redimensionement des thetas
+            tThetasSeeds = thetasSeeds.t().ravel().reshape(myModelSize * NP0, 1)
+            tThetasResamples = thetasResamples.t().ravel().reshape(myModelSize * NP0, 1)
+
+            # Calcul des probabilité p(theta^{(n-1)}) et p(theta')
+            ptThetasSeeds = torch.Tensor(
+                thetaPrior.computePDF(tThetasSeeds.detach().numpy()))
+            ptThetasResamples = torch.Tensor(
+                thetaPrior.computePDF(tThetasResamples.detach().numpy()))
+
+            rj = (ptThetasResamples / ptThetasSeeds)
+
+            sj = torch.minimum(torch.ones(myModelSize * NP0, 1), rj)
+            bj = torch.bernoulli(sj)
+
+            thetasNow = (bj * tThetasResamples + (1 - bj) *
+                        tThetasSeeds).reshape(NP0, myModelSize).t()
+            
             # On evalue les erreurs
-            y_hatsResamples = torch.concat(
-                tuple([FNN(ns, thetasResamples[:, i]).forward(XT) for i in range(0, NP0)]), 1)
-            rho_nResamples = torch.cdist(y_hatsResamples.t(), y.t(), p=pdist)
+            y_hatsNow = torch.concat(
+                tuple([myModel.update_weights(thetasNow[:, i]).forward(XT) for i in range(0, NP0)]), 1)
+            rhoNow = torch.cdist(y_hatsNow.t(), y.t(), p=pdist)
 
-            # On évalue l'amélioration
-            ameRho = rho_nResamples - rhoSeeds
-            ameTheta = thetasResamples - thetasSeeds
+            paramTemp = 1 - 1 / (1 + torch.exp( - (rhoNow - epsilon_j)/ TempCur))
+            mask = torch.diag((torch.bernoulli(paramTemp)).ravel().float())
 
-            # On voit si on avance dans le sens du gradient ou pas
-            # Si il y a une amélioration on avance
-            # Sinon, on remonte avec une proba de 1/ 1 + exp( - (1/ Tcur) * Grad)
-            avanceOuNon = torch.bernoulli(
-                1 / (1 + torch.exp(- (1/Tcur) * (ameRho))))
-            avanceOuNon[ameRho > 0] = 1
+            # mask = torch.diag((rhoNow <= epsilon_j).ravel().float())
+            rhoVal = mask @ rhoNow + (torch.eye(NP0) - mask) @ rhoSeeds
+            thetaVal = thetasNow @ mask + thetasSeeds @ (torch.eye(NP0) - mask)
 
-            # ThetaFinal = ThetaResample - mask * (ThetaResample - ThetaSeed)
-            mask = torch.diag(avanceOuNon[:, 0].float())
-
-            #
-            thetasSeeds = thetasResamples - torch.matmul(ameTheta, mask)
+            # Mise à jour
+            thetasSeeds = thetaVal
             thetas = torch.concatenate((thetas, thetasSeeds), 1)
-            rhoSeeds = rho_nResamples
+            rhoSeeds = rhoVal
             rho_n = torch.concatenate((rho_n, rhoSeeds))
 
-    return thetas, rho_n
+            # Réglage de la température
+            TempCur = Temp / np.log(2 + g)
+
+        j += 1
+        if (j >= lmax):
+            break
+
+    return thetas, rho_n, rhoMin, rhoMax
+
+
