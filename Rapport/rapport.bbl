@@ -3,6 +3,18 @@
 \bibitem{NeetGraph}
 \url{https://tikz.net/neural_networks/}.
 
+\bibitem{Andrieu2003}
+Christophe Andrieu, Nando de~Freitas, Arnaud Doucet, and Michael~I. Jordan.
+\newblock An introduction to mcmc for machine learning.
+\newblock {\em Machine Learning}, 50(1/2):5--43, 2003.
+
+\bibitem{Modified_MCMC}
+Siu-Kui Au and James~L. Beck.
+\newblock Estimation of small failure probabilities in high dimensions by
+  subset simulation.
+\newblock {\em Probabilistic Engineering Mechanics}, 16(4):263--277, October
+  2001.
+
 \bibitem{Chiachio2014}
 Manuel Chiachio, James~L. Beck, Juan Chiachio, and Guillermo Rus.
 \newblock Approximate bayesian computation by subset simulation.
