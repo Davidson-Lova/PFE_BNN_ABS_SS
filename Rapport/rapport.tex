@@ -501,7 +501,7 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 
 Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{100}$, avec $(x_i)_{i = 1}^N$
 une discrétisation uniforme de $[-0.5, 0.5]$ et $y(x) = 10 \sin(2 \pi x) + \zeta$ où $\zeta \sim \mathcal{N}(0.1)$
-Les paramètres de l'algorithme $N : 20000$, $l_{max} : 8$, $P_0 : 0.1$ et $\epsilon : 0.1$.
+Les paramètres de l'algorithme $N : 20000$, $l_{max} : 20$, $P_0 : 0.1$ et $\epsilon : 0.1$.
 
 Le réseau de neurones pris ici a une couche d'entrée, deux couche cachées à 15 cellules et une couche de sortie ce qui
 fait 286 paramètres avec la fonction ReLu comme fonction d'activation. La mesure de dissimilarité
@@ -517,15 +517,15 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 \begin{figure}[H]
     \centering
     \subfigure[listentry][Données d'entrainement]{\includegraphics[width = 0.48\textwidth]{../plots/SinPlot.png}}
-    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/plotSin-11-04-2023_13-51-30.png}}
+    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/plotSinRes2-12-04-2023_10-48-11.png}}
     \caption[short]{Résultat de l'algorithme BNN-ABC-SS}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--153.png}}
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--170.png}}
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeight-11-04-2023_13-51-30--199.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--151.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--154.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--268.png}}
     \caption[short]{Exemple de distribution a posteriori des poids et biais}
 \end{figure}
 
@@ -533,7 +533,7 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
-    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJoint-11-04-2023_13-51-30--0&47.png}};
+    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png}};
     \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
     \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(2)}_{2,2}$};
 \end{tikzpicture}
@@ -543,7 +543,7 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.8\textwidth]{../plots/plotIncertitudeSortie-11-04-2023_13-51-30--249&329.png}
+    \includegraphics[width = 0.8\textwidth]{../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png}
     \caption{Distribution sur la sortie pour $x \approx 0$ dans le domaine et et $x \approx 0.8$ hors du domaine}
 \end{figure}
 
