@@ -85,21 +85,21 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 
 Aujourd'hui, les applications des modèles/algorithmes d'apprentissage machine à base
 de réseaux de neurones arrivent à accomplir des tâches variées et de plus 
-en plus complexes. Ce sont des modèles paramètriques souvent avec un nombre très 
+en plus complexes. Ce sont des modèles paramétriques souvent avec un nombre très 
 importants de paramètres à ajuster pendant la période d'entrainement. En fonction des
-conditions de l'entrainement du modèles (données d'entrainement, choix d'hypperamètres),
-ces paramètres ne seront pas les même et naturelement la sortie du modèle
-sera affecter par cette variabilité. Comme la fonction du modèle est de sortir la bonne
-sortie quand on introduit une entrée, il y a un besoin de savoir controler cette variabilité
-pour avoir une confiance au résultat du modèle. Ce travail va tenter de reproduire un 
-des méthodes qui tempte à controler cette variabilité, proposée dans cette article \cite{Fernndez2022}, 
+conditions de l'entrainement du modèles (données d'entrainement, choix d'hypeparamètres),
+ces paramètres ne seront pas les mêmes et naturellement la sortie du modèle
+sera affecté par cette variabilité. Comme la fonction du modèle est de sortir la bonne
+sortie quand on introduit une entrée, il y a un besoin de savoir contrôler cette variabilité
+pour avoir une confiance dans le résultat du modèle. Ce travail va tenter de reproduire un 
+des méthodes qui tentent à contrôler cette variabilité, proposée dans cet article \cite{Fernndez2022}, 
 l'algorithme BNN-ABC-SS.
 
 
 \subsection{Réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}}}
 
-Un réseaux des neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} est un fonction non linéaire paramétrée. La fonction 
-prends au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$, le transforme 
+Un réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} est une fonction non linéaire paramétrée.
+La fonction prend au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$, le transforme 
 à travers les couches cachées pour enfin sortir un vecteur de sortie $y \in \mathcal{Y}$ à la couche de sortie.
 
 \begin{figure}[H]
@@ -108,31 +108,31 @@ prends au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$
     \label{fig:fnn}
 \end{figure}
 
-Pour passer d'une couche à une autre chaque neurones $a^{(j + 1)}_s$ de la couche d'arrivée reçoit une contribution
+Pour passer d'une couche à une autre chaque neurone $a^{(j + 1)}_s$ de la couche d'arrivée reçoit une contribution
 des neurones $\{a^{(j)}_i\}_{i = 1}^n$ de la couche de départ pondérés par les poids
-$\{w^{(j)}_{i,s}\}_{i = 1}^n$. Cette contribution sera biaisé (avec $b^{(j)}_s$) ensuite transformé par une fonction
+$\{w^{(j)}_{i,s}\}_{i = 1}^n$. Cette contribution sera biaisé (avec $b^{(j)}_s$) ensuite transformée par une fonction
 qu'on appelle $\textit{fonction d'activation}$ noté $\sigma$.
 
 \begin{figure}[H]
     \centerline{\includegraphics[width = 0.75\textwidth]{FNN/Images/fnnDetails/fnnDetails_page-0001.jpg}}
-    \caption{Passe d'une couche à la prochaine \cite{NeetGraph}}
+    \caption{Passage d'une couche à la prochaine couche \cite{NeetGraph}}
     \label{fig:fnnDetails}
 \end{figure}
 
-Pour la couche de sortie, en fonction des applications on choisit une fonction d'activation
-différente de ceux précédents (par exemple l'identité pour la regression et softmax pour la classification).
+Pour la couche de sortie, en fonction des applications on choisit une fonction d'activation $\sigma'$
+différente de $\sigma$ (par exemple l'identité pour la régression et softmax pour la classification).
 
 \subsection{Source d'incertitudes dans un réseaux de neurones}
 
-On modélise le réseaux de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} comme la fonction non linéaire
+On modélise le réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} comme la fonction non linéaire
 
 $$f : (x, \theta) \in \mathcal{X} \times \Theta \mapsto f(x, \theta) \in \mathcal{Y}$$
 
 où
 
 \begin{itemize}
-    \item $\mathcal{X} \subset \mathbb{R}^{n_e}$, l'espace des variables d'entrées
-    \item $\mathcal{Y} \subset \mathbb{R}^{n_s}$, l'espace des variables de sorties
+    \item $\mathcal{X} \subset \mathbb{R}^{n_e}$, l'espace des variables d'entrée
+    \item $\mathcal{Y} \subset \mathbb{R}^{n_s}$, l'espace des variables de sortie
     \item $\Theta \subset \mathbb{R}^{n_p}$ , l'espace des paramètres
 \end{itemize}
 
@@ -141,49 +141,49 @@ $D = \{ (x_i, y_i)\}_{i = 1}^N \in (\mathcal{X} \times \mathcal{Y})^N$.
 
 \subsubsection{Acquisition des données}
 
-Si on prend comme données d'entrées $x$ une mesure d'une quantité réel $\tilde{x}$.
+Si on prend comme données d'entrée $x$ une mesure d'une quantité réelle $\tilde{x}$.
 
 Il y a une variabilité sur la mesure en fonction des circonstances
-et conditions $\omega \in \Omega$ dans lequel la mesure a été effectué en 
-plus de la précision de l'apareil de mesure.
+et conditions $\omega \in \Omega$ où la mesure a été effectué en 
+plus de la précision de l'appareil de mesure.
 
-La sortie $y$ peut aussi subir des erreurs de labelisation
+La sortie $y$ peut aussi subir des erreurs de labélisation
 (pour le cas d'une tâche de classification) ou aussi de mesure si c'est 
-une quantité mesuré ou issue d'une quantité mesuré.
+une quantité mesurée ou issue d'une quantité mesurée.
 
 En somme on a une incertitude sur l'entrée $x | \omega \sim p_{x | \omega}$
 et $y | \omega \sim p_{y | \omega}$.
 
-S'ajoute à ça, l'incertitude sur $x$ qui peut se propager sur le $y$.
+S'ajoute à cela, l'incertitude sur $x$ qui peut se propager sur $y$.
 
 \subsubsection{Structure du modèle}
 
-Les paramètres $\theta$ et donc l'espace $\Theta$ est variable en fonction du choix de model $s$.
+Les paramètres $\theta$ et donc l'espace $\Theta$ est variable en fonction du choix de modèle $s$.
 
 On a $\theta | D,s \sim p_{\theta | D, s}$
 
 \subsection{Prédiction}
 
-La prédiction faite à partir d'un réseau entrainé subi alors les incertitudes venant
-de ces sources. La distribution de la prédiction $y^*$ sachant une entrée $x^*$ est données par
+La prédiction faite à partir d'un réseau entrainé subit alors les incertitudes venant
+de ces sources. La distribution de la prédiction $y^*$ sachant une entrée $x^*$ est donné par
 
 $$ p(y^* | x^*, D) = \int_{\Theta} \underbrace{p(y^* | x^*, \theta)}_{\text{Données}} \underbrace{p(\theta  | D)}_{\text{Modèle}} d \theta$$
 
 \subsubsection{Incertitude aléatoire}
 
-L'incertitude dite aléatoire est dus à la variabilité innée au données d'entrainement
+L'incertitude dite aléatoire est due à la variabilité innée aux données d'entrainement
 du modèle. Elle affecte la partie $p(y^* | x^*, \theta)$ de la tâche de prédiction.
 
-\subsubsection{Incertitude épistemique}
+\subsubsection{Incertitude épistémique}
 
-L'incertitude epsitemique qffecte la partie $p(\theta  | D)$ de la tâche de prédiction,
-elle due :
+L'incertitude épistémique affecte la partie $p(\theta  | D)$ de la tâche de prédiction,
+elle est due :
 
 \begin{itemize}
-    \item à la compléxité du modèle,
+    \item à la complexité du modèle,
     \item aux erreurs durant la phase d'entrainement,
     \item à la manque d'information à cause de données manquantes
-          ou la capacité de représentation des donnés d'entrainement.
+          ou la capacité de représentation des données d'entrainement.
 \end{itemize}
 
 \pagebreak
@@ -194,34 +194,34 @@ elle due :
 
 Les réseaux de neurones bayésiens sont des réseaux de neurones
 dont les paramètres ($\theta = (w, b)$) sont, non pas des quantités déterministes (comme
-dans le cas d'un réseau de normales) mais des distributions de probabilité.
+dans le cas d'un réseau classique) mais des distributions de probabilité.
 
-A l'initialisation, les paramètres suivent une loi a priori $p(\theta)$,
+À l'initialisation, les paramètres suivent une loi a priori $p(\theta)$,
 et l'entrainement consiste à évaluer l'a posteriori de cette loi conditionnée
 aux données d'entrainement $p(\theta | D)$.
 
 Cette méthode permet de tenir compte de l'incertitude sur le modèle utilisé
 avec une structure donnée, car ici, il s'agit d'évaluer 
-une famille de modèle au lieu d'un seul.
+une famille de modèles au lieu d'un seul.
 
 % + Donner son interet dans la résolution du problème précédent
 
 % + Donner les méthodes d'entrainement d'un tel réseaux
 Cependant, à cause de la taille et de la complexité de ces modèles
-on ne dispose pas, dans le cas générale, d'une formule analytique pour 
+on ne dispose pas, dans le cas général, d'une formule analytique pour 
 calculer cette distribution a posteriori. Des méthodes numériques
-ont été développé pour calculer une approximation de cette distribution a posteriori.
+ont été développés pour calculer une approximation de cette distribution a posteriori.
 
 Parmis ces méthodes on trouve :
 \begin{itemize}
-    \item Méthodes variationelle
-    \item Méthodes par échantillonage ou
-          Monte Carlo (qu'on va voir dans la suite)
+    \item Méthodes variationnelles
+    \item Méthodes par échantillonnage ou
+          Monte-Carlo (qu'on va voir dans la suite)
     \item Méthodes de Laplace
 \end{itemize}
 
 
-\subsection{Méthodes variationelles}
+\subsection{Méthodes variationnelles}
 
 Ici on approche $p(\theta | D)$ par une famille de distribution
 paramétrique $\{q^{\gamma}(\theta)\}_{\gamma}$ (souvent des gaussiennes).
@@ -230,8 +230,8 @@ le plus de $p(\theta | D)$ au sens de la divergence de Kullback-Leibler :
 
 $$KL(q||p) = \mathbb{E}_q \left[\log \frac{q^{\gamma}(\theta)}{p(\theta | D)}\right]$$
 
-Comme on ne connait pas $p(\theta | D)$, on utilise l'ELBO (\textit{evidence lower bound})
-qui est égal à la divergence à une constante paramètres
+Comme on ne connaît pas $p(\theta | D)$, on utilise l'ELBO (\textit{evidence lower bound})
+qui est égal à la divergence à une constante près
 
 $$L =\mathbb{E}_q \left[\log \frac{p(y | D, \theta)}{q^{\gamma}(\theta)}\right]$$
 
@@ -256,7 +256,7 @@ La formule de Bayes nous donne
 $$p(\theta | D) = \frac{p(D | \theta) }{p(D)}p(\theta)$$
 
 \begin{itemize}
-    \item $p(D | \theta)$ la vraissemblance des données $D$ sachant le paramètre $\theta$,
+    \item $p(D | \theta)$ la vraisemblance des données $D$ sachant le paramètre $\theta$,
     \item $p(\theta)$ la distribution a priori de $\theta$,
     \item $p(D)$ la distribution des données d'entrainement.
 \end{itemize}
@@ -270,7 +270,7 @@ Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités.
 \subsection{ABC (\href{https://en.wikipedia.org/wiki/Approximate_Bayesian_computation}{\textit{Approximate Bayesian Computation}})}
 
 La méthode ABC consiste à evaluer $p(\theta | D)$ sans évaluer
-la vraissemblance qui peut s'avérer couteux.
+la vraisemblance qui peut s'avérer couteux.
 
 Posons $\hat{y} = f(x, \theta)$ la sortie d'une évaluation de $x$ par
 réseaux de neurones $f$ avec paramètre $\theta$.
@@ -289,9 +289,9 @@ l'algorithme de rejet.
     \item On accepte le $\theta$ si et seulement si $\hat{y} = y$
 \end{itemize}
 
-Comme $\hat{y}$ est une quantité réel (a priori à distribution continue),
+Comme $\hat{y}$ est une quantité réelle (a priori à distribution continue),
 obtenir exactement $\hat{y} = y$ est une condition trop forte
-pour être atteinte (en un temps raisonable).
+pour être atteinte (en un temps raisonnable).
 
 On introduit alors une tolérance $\epsilon$, on remplace $\hat{y} = y$
 par $|\hat{y} - y| < \epsilon$.
@@ -311,13 +311,13 @@ où $$\mathcal{N}_{\epsilon}(D) = \{\hat{y} \in \mathcal{Y}, \rho(\eta(\hat{y}),
 où $\eta$ est une statistique qui caractérise une distribution
 (par exemple les moments ou les quantiles) et $\rho$ est une mesure de dissimilarité.
 
-En intégrant des deux cotés par $\hat{y}$ on obtient notre approximation de $p(\theta | D)$
+En intégrant des deux côtés par $\hat{y}$ on obtient notre approximation de $p(\theta | D)$
 
 $$p_{\epsilon}( \theta | D) = \int_{\mathcal{Y}} p_{\epsilon}( \theta , \hat{y}| D) d \hat{y} \propto \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y}) p( \hat{y}| \theta) p( \theta) d \hat{y}$$
 
 $$ = p( \theta) \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y})  p( \hat{y}| \theta) d \hat{y} = \mathbb{P} (\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta) p( \theta)$$
 
-Cependant lors de l'algorithme de rejet, tirer les $\theta$ de manière générique donne trop rarement des $\hat{y}$ qui tombe dans $\mathcal{N}_{\epsilon} (D)$
+Cependant lors de l'algorithme de rejet, tirer les $\theta$ de manière générique donne trop rarement des $\hat{y}$ qui tombent dans $\mathcal{N}_{\epsilon} (D)$
 ce qui fait que l'approximation est prend beaucoup de temps à converger. On utilise alors SS (Subset Simulation)
 pour faire des tirages plus fins.
 
@@ -340,12 +340,12 @@ L'idée de la SS, est de faire des tirages itératifs de plus en plus fins.
 
 Initialement on tire de manière générique avec un $\epsilon_1$ grand.
 
-A chaque itération, on tire à partir (conditionnées) des tirages précédents avec un $\epsilon_i$ plus fin.
+À chaque itération, on tire à partir (conditionnés) des tirages précédents avec une tolérance $\epsilon_i$ plus petite.
 
 Après $n$ itérations, on aura tiré avec $\epsilon_m$ beaucoup plus petit que $\epsilon_0$.
 
-Cette méthode exploite la décompostion d'un probabilité d'un ordre très petit
-en un produit de probabilité d'un ordre assez grand pour être calculable en un temps raisonable.
+Cette méthode exploite la décomposition d'une probabilité d'un ordre très petit
+en un produit de probabilité d'un ordre assez grand pour être calculable en un temps raisonnable.
 
 
 
@@ -357,8 +357,8 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 
 \begin{algorithm}
     \caption{Pseudo code BNN - ABC - SS}\label{alg:one}
-    \Entree{$N \in \mathbb{N}^*$ : le nombre de tirage à chaque itération
-        \linebreak $l_{\text{max}}\in \mathbb{N}^{*}$ : le nombre d'itération maximale
+    \Entree{$N \in \mathbb{N}^*$ : le nombre de tirages à chaque itération
+        \linebreak $l_{\text{max}}\in \mathbb{N}^{*}$ : le nombre d'itérations maximaux
         \linebreak $P_0$ la proportion de nos tirages qu'on grade pour générer à la prochaine itération
         \linebreak $\epsilon$ : la tolérance finale
         \linebreak $x$ : la variable d'entrée
@@ -381,14 +381,14 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 
     On ordonne $\left[\gamma_1^{(j-1)},..., \gamma_1^{(j-1)} \right]$ dans l'ordre croissant;
 
-    On réordonne $\left[\theta_1^{(j-1) }, ..., \theta_N^{(j-1)}\right]$ dans cette ordre;
+    On réordonne $\left[\theta_1^{(j-1) }, ..., \theta_N^{(j-1)}\right]$ dans cet ordre;
 
     $\epsilon_j \gets \gamma_{NP_0}^{(j-1)}$ (ou $\frac{1}{2} (\gamma_{NP_0}^{(j-1)} + \gamma_{NP_0 + 1}^{(j-1)})$);
 
     \Pour{$k \in \{1,..., NP_0\}$}{
-    On choisit une graine $\theta_k^{(j-1), 1} = \theta_k^{(j-1)}$ tq $\hat{y}_k^{(j-1)} \in \mathcal{N}_{\epsilon_j} (D)$
+    On choisit une graine $\theta_k^{(j-1), 1} = \theta_k^{(j-1)}$ tel que $\hat{y}_k^{(j-1)} \in \mathcal{N}_{\epsilon_j} (D)$
 
-    On génère $iP_0$ états d'une chaine de markov de $\theta$ tq $\hat{y}\in \mathcal{N}_{\epsilon_j} (D)$ :
+    On génère $iP_0$ états d'une chaine de Markov de $\theta$ tel que $\hat{y}\in \mathcal{N}_{\epsilon_j} (D)$ :
 
     $\left[ \theta_k^{(j-1), 1}, ..., \theta_k^{(j-1), iP_0} \right]$ et avec ça $\left[\gamma_k^{(j-1), 1},..., \gamma_k^{(j-1), iP_0} \right]$
     }
@@ -409,16 +409,16 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 
 % + A voir si on rajoute ou pas
 
-Pour la génénation des chaines de markov dans l'espace $\mathcal{N}_{\epsilon_{j}} (D)$, On utilise l'Algorithme
+Pour la génération des chaines de Markov dans l'espace $\mathcal{N}_{\epsilon_{j}} (D)$, On utilise l'algorithme
 'Modified Monte Carlo' \cite{Chiachio2014, Modified_MCMC}.
 
-L'algorithme de MCMC \cite{Andrieu2003} appliquée à notre problème s'écrit se déroule comme suit.
+L'algorithme de MCMC \cite{Andrieu2003} appliquées à notre problème s'écrit se déroule comme suit.
 
 On se donne une distribution de proposition $q(.|.)$ et au niveau $j$, à l'étape $n$ de la chaine :
 
 \begin{itemize}
-    \item On genère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
-    \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec un probabilité :
+    \item On génère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
+    \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec une probabilité :
 
           $\alpha = \min \left\{ 1, \frac{p(\theta') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}\mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (x')$
 
@@ -437,7 +437,7 @@ Dans les exemples qu'on va prendre après, on a pris
 \pagebreak
 \section{Réalisation}
 % \footcite{BNN_ABC_SS_main}.
-On se donne un base de données à étudier avec une comparasion avec des méthodes déja existante \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
+On se donne une base de données à étudier avec une comparaison avec des méthodes déjà existante \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
 Ici on propose de reproduire un résultat vu dans l'article \cite{Fernndez2022}.
 
 \subsection{Cosinus perturbé}
@@ -447,7 +447,7 @@ une discrétisation uniforme de $[-3, 3]$ et $y(x) = \cos(x) + \zeta$ où $\zeta
 
 Les paramètres de l'algorithme $N : 5000$, $l_{max} : 6$, $P_0 : 0.2$ et $\epsilon : 0.1$.
 
-Le réseau de neurones pris ici a une couche d'entrée, un couche cachée à deux cellules et une couche de sortie ce qui
+Le réseau de neurones pris ici a une couche d'entrée, une couche cachée à deux cellules et une couche de sortie ce qui
 fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation. La mesure de dissimilarité
 choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
 
@@ -492,9 +492,9 @@ Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{100}$, avec $(x_i)_{i
 une discrétisation uniforme de $[-0.5, 0.5]$ et $y(x) = 10 \sin(2 \pi x) + \zeta$ où $\zeta \sim \mathcal{N}(0.1)$
 Les paramètres de l'algorithme $N : 20000$, $l_{max} : 20$, $P_0 : 0.1$ et $\epsilon : 0.1$.
 
-Le réseau de neurones pris ici a une couche d'entrée, deux couche cachées à 15 cellules et une couche de sortie ce qui
+Le réseau de neurones pris ici a une couche d'entrée, deux couches cachées à 15 cellules et une couche de sortie ce qui
 fait 286 paramètres avec la fonction ReLu comme fonction d'activation. La mesure de dissimilarité
-choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
+choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
 
 
 \begin{figure}[H]
@@ -548,7 +548,7 @@ Insert res here
 \pagebreak
 \section{Conclusion et perspective}
 On a vu ici l'implémentation d'une méthode d'approximation sur l'incertitude
-sur la sorite qui poura être utilisé par la suite dans ....
+sur la sortie qui poura être utilisée par la suite dans ....
 
 \pagebreak
 \bibliographystyle{plain}
