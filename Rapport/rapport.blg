@@ -4,45 +4,46 @@ The top-level auxiliary file: rapport.aux
 The style file: plain.bst
 Database file #1: rapport.bib
 Warning--to sort, need author or key in NeetGraph
-You've used 6 entries,
+Warning--to sort, need author or key in githubLink
+You've used 7 entries,
             2118 wiz_defined-function locations,
-            542 strings with 5426 characters,
-and the built_in function-call counts, 2315 in all, are:
-= -- 207
-> -- 161
+            545 strings with 5494 characters,
+and the built_in function-call counts, 2464 in all, are:
+= -- 220
+> -- 162
 < -- 0
-+ -- 66
++ -- 67
 - -- 58
-* -- 203
-:= -- 394
-add.period$ -- 15
-call.type$ -- 6
-change.case$ -- 46
+* -- 208
+:= -- 408
+add.period$ -- 16
+call.type$ -- 7
+change.case$ -- 48
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 58
-empty$ -- 153
+cite$ -- 9
+duplicate$ -- 65
+empty$ -- 176
 format.name$ -- 58
-if$ -- 453
+if$ -- 491
 int.to.chr$ -- 0
-int.to.str$ -- 6
+int.to.str$ -- 7
 missing$ -- 4
-newline$ -- 30
+newline$ -- 33
 num.names$ -- 10
-pop$ -- 50
+pop$ -- 59
 preamble$ -- 1
-purify$ -- 41
+purify$ -- 43
 quote$ -- 0
-skip$ -- 46
+skip$ -- 55
 stack$ -- 0
-substring$ -- 128
-swap$ -- 6
+substring$ -- 133
+swap$ -- 7
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 24
-warning$ -- 1
+type$ -- 28
+warning$ -- 2
 while$ -- 17
-width$ -- 7
-write$ -- 59
-(There was 1 warning)
+width$ -- 8
+write$ -- 64
+(There were 2 warnings)
