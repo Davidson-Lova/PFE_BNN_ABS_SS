@@ -437,18 +437,18 @@ Dans les exemples qu'on va prendre après, on a pris
 \pagebreak
 \section{Réalisation}
 % \footcite{BNN_ABC_SS_main}.
-On se donne une base de données à étudier avec une comparaison avec des méthodes déjà existante \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
+On se donne une base de données à étudier avec une comparaison avec des méthodes déjà existantes \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
 Ici on propose de reproduire un résultat vu dans l'article \cite{Fernndez2022}.
 
 \subsection{Cosinus perturbé}
 
-Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{200}$, avec $(x_i)_{i = 1}^N$
+Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{200}$, avec $(x_i)_{i = 1}^{200}$
 une discrétisation uniforme de $[-3, 3]$ et $y(x) = \cos(x) + \zeta$ où $\zeta \sim \mathcal{N}(0, 0.1)$.
 
-Les paramètres de l'algorithme $N : 5000$, $l_{max} : 6$, $P_0 : 0.2$ et $\epsilon : 0.1$.
+Les paramètres de l'algorithme : $N : 5000$, $l_{max} : 6$, $P_0 : 0.2$ et $\epsilon : 0.1$.
 
-Le réseau de neurones pris ici a une couche d'entrée, une couche cachée à deux cellules et une couche de sortie ce qui
-fait 7 paramètres avec la fonction sigmoïde comme fonction d'activation. La mesure de dissimilarité
+Le réseau de neurones utilisé ici a une couche d'entrée, une couche cachée à deux cellules et une couche de sortie ce qui
+fait 7 paramètres avec la fonction sgmoïde comme fonction d'activation. La mesure de dissimilarité
 choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\textit{Mean Squared Error}}).
 
 \begin{figure}[H]
@@ -488,7 +488,7 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 \subsection{Sinus perturbé}
 
 
-Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{100}$, avec $(x_i)_{i = 1}^N$
+Les données d'entrainement $D = \{x_i , y(x_i)\}_{i = 1}^{100}$, avec $(x_i)_{i = 1}^{100}$
 une discrétisation uniforme de $[-0.5, 0.5]$ et $y(x) = 10 \sin(2 \pi x) + \zeta$ où $\zeta \sim \mathcal{N}(0.1)$
 Les paramètres de l'algorithme $N : 20000$, $l_{max} : 20$, $P_0 : 0.1$ et $\epsilon : 0.1$.
 
@@ -506,15 +506,15 @@ choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\tex
 \begin{figure}[H]
     \centering
     \subfigure[listentry][Données d'entrainement]{\includegraphics[width = 0.48\textwidth]{../plots/SinPlot.png}}
-    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/plotSinRes2-12-04-2023_10-48-11.png}}
+    \subfigure[listentry][Résultat]{\includegraphics[width = 0.48\textwidth]{../plots/SinusTube.png}}
     \caption[short]{Résultat de l'algorithme BNN-ABC-SS}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--151.png}}
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--154.png}}
-    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/plotWeightSin2-12-04-2023_10-48-11--268.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/wDistSin0.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/wDistSin1.png}}
+    \subfigure[]{\includegraphics[width = 0.3\textwidth]{../plots/wDistSin2.png}}
     \caption[short]{Exemple de distribution a posteriori des poids et biais}
 \end{figure}
 
@@ -522,23 +522,23 @@ choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\tex
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
-    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png}};
+    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/wDistSink.png}};
     \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
-    \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(2)}_{2,2}$};
+    \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,11}$};
 \end{tikzpicture}
-\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(2)}_{2,2}$}
+\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,11}$}
 
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.8\textwidth]{../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png}
-    \caption{Distribution sur la sortie pour $x \approx 0$ dans le domaine et et $x \approx 0.8$ hors du domaine}
+    \includegraphics[width = 0.8\textwidth]{../plots/outputUQSin.png}
+    \caption{Distribution sur la sortie pour $x \approx 0$ dans le domaine et et $x \approx 1$ hors du domaine}
 \end{figure}
 
 \subsection{Application}
 
-On utilise ici les données du vol 0 du jeux de données "Aircraft\_01.h5".
+On utilise ici les données du vol 0 du jeu de données "Aircraft\_01.h5".
 
 On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des variables
 
@@ -549,16 +549,15 @@ On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des var
     \item M [Mach] (une description ici)
 \end{itemize}
 
-On essaie d'abord de faire une regression linéaire i.e. : 
+On essaie d'abord de faire une régression linéaire i.e. : 
 
 $$\forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} + \epsilon_i \Leftrightarrow y = X a + \epsilon$$
 
 \begin{itemize}
     \item $y_i$ la $i$-ème composante du vecteur de sortie,
-    \item $X_{i,p}$ la $i$-ème composante de la $p$-ème covariable,
+    \item $X_{i,p}$ la $i$-ème composante de la $p$-ième covariable,
     \item $\epsilon_i$ le bruit.
 \end{itemize}
-
 
 avec $X = \begin{pmatrix} 1 & X_{1, 1} & X_{1, 2} & X_{1, 3} & X_{1, 4}\\
     \vdots & \vdots & \vdots & \vdots & \vdots \\
@@ -571,44 +570,45 @@ et on pose $\hat{y} = X \hat{a}$.
 \begin{figure}[H]
     \centering
     \includegraphics*[width = 0.7\textwidth]{../plots/RegLin.png}
-    \caption{Résultat de la regression linéaire}
+    \caption{Résultat de la régression linéaire}
 \end{figure}
 
-Maintenant on utilise l'algorithm BNN-ABC-SS avec un modèle linéaire.
+Maintenant on utilise l'algorithme BNN-ABC-SS avec un modèle linéaire.
 
 Les paramètres de l'algorithme :
 N : 2000,
 lmax : 6,
 P0 : 0.1,
-epsilon : 0.01,
-fact : 0.8,
-ns = [4,1],
-activation : "relu" et
-la dissimilarité choisi est l'erreur quadratique moyenne.
+epsilon : 0.01
+la mesure de dissimilarité choisie est l'erreur quadratique moyenne (MSE).
 
 \begin{figure}[H]
     \centering
-    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/ErrorRegLin.png}}
-    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TubeRegLin.png}}
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/TempErreurRegLin.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TempTubeRegLin.png}}
     \caption{Résultat de BNN-ABC-SS pour le modèle linéaire}
 \end{figure}
 
-Ensuite on utilise comme modèle un réseau de neurones à une couche cachée composée de 2 neurones.
+Ensuite on utilise comme modèle un réseau de neurones à une couche cachée composée de 2 neurones
+avec la fonction d'activation ReLu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.3\textwidth]{FNN/Images/fnnTemp.jpg}
+    \caption[short]{Réseau de neurones utilisé}
+\end{figure}
 
 Les paramètres de l'algorithme :
 N : 5000,
 lmax : 6,
 P0 : 0.1,
-epsilon : 0.01,
-fact : 0.5,
-ns = [4,1],
-activation : "relu" et
-la dissimilarité choisi est l'erreur quadratique moyenne.
+epsilon : 0.01 et 
+la mesure de dissimilarité choisie est l'erreur quadratique moyenne.
 
 \begin{figure}[H]
     \centering
-    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/ErrorRegNN.png}}
-    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TubeNN.png}}
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/TempErreurFNN.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TempTubeFNN.png}}
     \caption{Résultat de BNN-ABC-SS pour le réseau de neurones}
 \end{figure}
 
