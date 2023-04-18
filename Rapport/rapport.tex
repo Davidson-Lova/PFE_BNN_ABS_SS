@@ -568,21 +568,49 @@ avec $X = \begin{pmatrix} 1 & X_{1, 1} & X_{1, 2} & X_{1, 3} & X_{1, 4}\\
 Le paramètre $\hat{a}$ qui minimise l'erreur quadratique moyenne est $\hat{a} = (X^T X)^{-1} X^T y$
 et on pose $\hat{y} = X \hat{a}$.
 
-insert figure linear regression
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width = 0.7\textwidth]{../plots/RegLin.png}
+    \caption{Résultat de la regression linéaire}
+\end{figure}
 
 Maintenant on utilise l'algorithm BNN-ABC-SS avec un modèle linéaire.
 
-Les paramètres de l'algorithme (inster paramlist here).
+Les paramètres de l'algorithme :
+N : 2000,
+lmax : 6,
+P0 : 0.1,
+epsilon : 0.01,
+fact : 0.8,
+ns = [4,1],
+activation : "relu" et
+la dissimilarité choisi est l'erreur quadratique moyenne.
 
-insert fig result 
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/ErrorRegLin.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TubeRegLin.png}}
+    \caption{Résultat de BNN-ABC-SS pour le modèle linéaire}
+\end{figure}
 
-insert fig error
+Ensuite on utilise comme modèle un réseau de neurones à une couche cachée composée de 2 neurones.
 
-Ensuite on utilise un réseau de neurones à une couche cachée composée de 2 neurones.
+Les paramètres de l'algorithme :
+N : 5000,
+lmax : 6,
+P0 : 0.1,
+epsilon : 0.01,
+fact : 0.5,
+ns = [4,1],
+activation : "relu" et
+la dissimilarité choisi est l'erreur quadratique moyenne.
 
-insert fig result
-
-insert fig error
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/ErrorRegNN.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TubeNN.png}}
+    \caption{Résultat de BNN-ABC-SS pour le réseau de neurones}
+\end{figure}
 
 \pagebreak
 \section{Conclusion et perspective}
