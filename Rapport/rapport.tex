@@ -84,22 +84,22 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 \section{Introduction}
 
 Aujourd'hui, les applications des modèles/algorithmes d'apprentissage machine à base
-de réseaux de neurones arrivent à accomplir des tâches variées et de plus 
-en plus complexes. Ce sont des modèles paramétriques souvent avec un nombre très 
+de réseaux de neurones arrivent à accomplir des tâches variées et de plus
+en plus complexes. Ce sont des modèles paramétriques souvent avec un nombre très
 importants de paramètres à ajuster pendant la période d'entrainement. En fonction des
 conditions de l'entrainement du modèles (données d'entrainement, choix d'hypeparamètres),
 ces paramètres ne seront pas les mêmes et naturellement la sortie du modèle
 sera affecté par cette variabilité. Comme la fonction du modèle est de sortir la bonne
 sortie quand on introduit une entrée, il y a un besoin de savoir contrôler cette variabilité
-pour avoir une confiance dans le résultat du modèle. Ce travail va tenter de reproduire un 
-des méthodes qui tentent à contrôler cette variabilité, proposée dans cet article \cite{Fernndez2022}, 
+pour avoir une confiance dans le résultat du modèle. Ce travail va tenter de reproduire un
+des méthodes qui tentent à contrôler cette variabilité, proposée dans cet article \cite{Fernndez2022},
 l'algorithme BNN-ABC-SS.
 
 
 \subsection{Réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}}}
 
 Un réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} est une fonction non linéaire paramétrée.
-La fonction prend au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$, le transforme 
+La fonction prend au niveau de sa couche d'entrée un vecteur d'entrée $x \in \mathcal{X}$, le transforme
 à travers les couches cachées pour enfin sortir un vecteur de sortie $y \in \mathcal{Y}$ à la couche de sortie.
 
 \begin{figure}[H]
@@ -144,11 +144,11 @@ $D = \{ (x_i, y_i)\}_{i = 1}^N \in (\mathcal{X} \times \mathcal{Y})^N$.
 Si on prend comme données d'entrée $x$ une mesure d'une quantité réelle $\tilde{x}$.
 
 Il y a une variabilité sur la mesure en fonction des circonstances
-et conditions $\omega \in \Omega$ où la mesure a été effectué en 
+et conditions $\omega \in \Omega$ où la mesure a été effectué en
 plus de la précision de l'appareil de mesure.
 
 La sortie $y$ peut aussi subir des erreurs de labélisation
-(pour le cas d'une tâche de classification) ou aussi de mesure si c'est 
+(pour le cas d'une tâche de classification) ou aussi de mesure si c'est
 une quantité mesurée ou issue d'une quantité mesurée.
 
 En somme on a une incertitude sur l'entrée $x | \omega \sim p_{x | \omega}$
@@ -201,14 +201,14 @@ et l'entrainement consiste à évaluer l'a posteriori de cette loi conditionnée
 aux données d'entrainement $p(\theta | D)$.
 
 Cette méthode permet de tenir compte de l'incertitude sur le modèle utilisé
-avec une structure donnée, car ici, il s'agit d'évaluer 
+avec une structure donnée, car ici, il s'agit d'évaluer
 une famille de modèles au lieu d'un seul.
 
 % + Donner son interet dans la résolution du problème précédent
 
 % + Donner les méthodes d'entrainement d'un tel réseaux
 Cependant, à cause de la taille et de la complexité de ces modèles
-on ne dispose pas, dans le cas général, d'une formule analytique pour 
+on ne dispose pas, dans le cas général, d'une formule analytique pour
 calculer cette distribution a posteriori. Des méthodes numériques
 ont été développés pour calculer une approximation de cette distribution a posteriori.
 
@@ -241,13 +241,17 @@ On résout ici un problème d'optimisation.
 
 \subsection{Méthode de Laplace}
 
-$\hat{\theta}$ l'estimateur de maximum d'a priori.
+On approche la distribution a priori par une gaussienne
+centrée autour de $\hat{\theta}$ l'estimateur de maximum d'a priori
+avec une variance issue du résultat du développement limité ci-dessous \cite{Uncertainty_Deep} .
 
 $$\log p(\theta | D) \approx \log p(\hat{\theta} | D)
     + \frac{1}{2} (\theta - \hat{\theta})^T (H + \tau I)
     (\theta - \hat{\theta})$$
 
 $$p(\theta | D) \sim \mathcal{N}(\hat{\theta}, (H + \tau I)^{-1})$$
+
+Ici $H$ est la matrice hessienne de $log( p (\theta | D ))$.
 
 \subsection{Méthodes par échantillonage ou \href{https://en.wikipedia.org/wiki/Monte_Carlo_method}{Monte Carlo}}
 
@@ -261,7 +265,8 @@ $$p(\theta | D) = \frac{p(D | \theta) }{p(D)}p(\theta)$$
     \item $p(D)$ la distribution des données d'entrainement.
 \end{itemize}
 
-Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités.
+Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités en utilisant Monte Carlo ou
+encore MCMC \cite{Uncertainty_Deep}.
 
 \pagebreak
 
@@ -269,7 +274,7 @@ Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités.
 
 \subsection{ABC (\href{https://en.wikipedia.org/wiki/Approximate_Bayesian_computation}{\textit{Approximate Bayesian Computation}})}
 
-La méthode ABC consiste à evaluer $p(\theta | D)$ sans évaluer
+La méthode ABC consiste à évaluer $p(\theta | D)$ sans évaluer
 la vraisemblance qui peut s'avérer couteux.
 
 Posons $\hat{y} = f(x, \theta)$ la sortie d'une évaluation de $x$ par
@@ -358,7 +363,7 @@ en un produit de probabilité d'un ordre assez grand pour être calculable en un
 \begin{algorithm}
     \caption{Pseudo code BNN - ABC - SS}\label{alg:one}
     \Entree{$N \in \mathbb{N}^*$ : le nombre de tirages à chaque itération
-        \linebreak $l_{\text{max}}\in \mathbb{N}^{*}$ : le nombre d'itérations maximaux
+        \linebreak $l_{\text{max}}\in \mathbb{N}^{*}$ : le nombre d'itérations maximales
         \linebreak $P_0$ la proportion de nos tirages qu'on grade pour générer à la prochaine itération
         \linebreak $\epsilon$ : la tolérance finale
         \linebreak $x$ : la variable d'entrée
@@ -413,29 +418,25 @@ Pour la génération des chaines de Markov dans l'espace $\mathcal{N}_{\epsilon_
 'Modified Monte Carlo' \cite{Chiachio2014, Modified_MCMC}.
 
 L'algorithme de MCMC \cite{Andrieu2003} appliquées à notre problème s'écrit se déroule comme suit.
-
 On se donne une distribution de proposition $q(.|.)$ et au niveau $j$, à l'étape $n$ de la chaine :
 
 \begin{itemize}
-    \item On génère $\theta' \sim q(\theta | \theta)$ et $y' \sim p(x | \theta')$
-    \item On accepte $(\theta', x')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec une probabilité :
+    \item On génère $\theta' \sim q(\theta' | \theta)$ et $y' \sim p(y' |x, \theta')$
+    \item On accepte $(\theta', y')$ en tant que $(\theta^{(n)}, x^{(n)})$ avec une probabilité :
 
-          $\alpha = \min \left\{ 1, \frac{p(\theta') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}\mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (x')$
+          $\alpha = \min \left\{ 1, \frac{p(\theta') \mathbbm{1}_{\mathcal{N}_{\epsilon_j}} (y') q(\theta^{(n - 1)} | \theta')}{p(\theta^{(n - 1)}) q(\theta' | \theta^{(n-1)})}\right\}$
 
     \item Sinon $(\theta^{(n)}, x^{(n)}) = (\theta^{(n-1)}, x^{(n-1)})$
 \end{itemize}
 
-
-Dans les exemples qu'on va prendre après, on a pris
-\begin{itemize}
-    \item $p(\theta)$ est la densité de la distribution $\mathcal{N}(0, \sigma_0)$
-    \item $q(. | b)$ est celle de $ \mathcal{N}(b, \sigma_j)$
-\end{itemize}
-
+Cependant cet algorithme s'avère trop lent car comme les $\theta$ vivent dans un
+espace de grandes dimensions, les probabilités calculées ici sont trop petites. Ce
+qui motive l'utilisation d'une version modifiée du MCMC \cite{Modified_MCMC}, qui au lieu
+d'évaluer des probabilités sur tout le vecteur $\theta$, le fait composante par composante.
 
 
 \pagebreak
-\section{Réalisation}
+\section{Réalisations}
 % \footcite{BNN_ABC_SS_main}.
 On se donne une base de données à étudier avec une comparaison avec des méthodes déjà existantes \cite{Chiachio2014,Fernndez2022,Uncertainty_Deep}
 Ici on propose de reproduire un résultat vu dans l'article \cite{Fernndez2022}.
@@ -475,13 +476,13 @@ choisi est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\text
 
 
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png}};
-    \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
-    \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,2}$};
-\end{tikzpicture}
-\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,2}$}
+    \centering
+    \begin{tikzpicture}
+        \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/plotWeigthJoint-11-04-2023_08-47-51--0&1.png}};
+        \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
+        \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,2}$};
+    \end{tikzpicture}
+    \caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,2}$}
 
 \end{figure}
 
@@ -520,13 +521,13 @@ choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\tex
 
 
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/wDistSink.png}};
-    \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
-    \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,11}$};
-\end{tikzpicture}
-\caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,11}$}
+    \centering
+    \begin{tikzpicture}
+        \node (img) {\includegraphics[width = 0.6\textwidth]{../plots/wDistSink.png}};
+        \node[below=of img, node distance=0cm, yshift=1cm] {$w^{(1)}_{1,1}$};
+        \node[left=of img, node distance=0cm, rotate=90, anchor=center,yshift=-0.7cm] {$w^{(1)}_{1,11}$};
+    \end{tikzpicture}
+    \caption{Distribution a posteriori de $w^{(1)}_{1,1}$ et $w^{(1)}_{1,11}$}
 
 \end{figure}
 
@@ -549,7 +550,7 @@ On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des var
     \item M [Mach] (une description ici)
 \end{itemize}
 
-On essaie d'abord de faire une régression linéaire i.e. : 
+On essaie d'abord de faire une régression linéaire i.e. :
 
 $$\forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} + \epsilon_i \Leftrightarrow y = X a + \epsilon$$
 
@@ -559,10 +560,10 @@ $$\forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} 
     \item $\epsilon_i$ le bruit.
 \end{itemize}
 
-avec $X = \begin{pmatrix} 1 & X_{1, 1} & X_{1, 2} & X_{1, 3} & X_{1, 4}\\
-    \vdots & \vdots & \vdots & \vdots & \vdots \\
-    1 & X_{n, 1} & X_{n, 2} & X_{n, 3} & X_{n, 4}
-\end{pmatrix} $, $a = (a_0,..., a_4)^T$ et $\epsilon = (\epsilon_1,..., \epsilon_n)^T$
+avec $X = \begin{pmatrix} 1      & X_{1, 1} & X_{1, 2} & X_{1, 3} & X_{1, 4} \\
+                \vdots & \vdots   & \vdots   & \vdots   & \vdots   \\
+                1      & X_{n, 1} & X_{n, 2} & X_{n, 3} & X_{n, 4}
+    \end{pmatrix} $, $a = (a_0,..., a_4)^T$ et $\epsilon = (\epsilon_1,..., \epsilon_n)^T$
 
 Le paramètre $\hat{a}$ qui minimise l'erreur quadratique moyenne est $\hat{a} = (X^T X)^{-1} X^T y$
 et on pose $\hat{y} = X \hat{a}$.
@@ -602,7 +603,7 @@ Les paramètres de l'algorithme :
 N : 5000,
 lmax : 6,
 P0 : 0.1,
-epsilon : 0.01 et 
+epsilon : 0.01 et
 la mesure de dissimilarité choisie est l'erreur quadratique moyenne.
 
 \begin{figure}[H]
@@ -614,8 +615,29 @@ la mesure de dissimilarité choisie est l'erreur quadratique moyenne.
 
 \pagebreak
 \section{Conclusion et perspective}
-On a vu ici l'implémentation d'une méthode d'approximation 
-sur l'incertitude sur la sortie. Ici mets les impressions que tu as eu.
+Ce travail nous a permis d'implementer un algorithme qui tente d'intégrer
+un type d'incertitude (épistémique) dans la prédiction d'un réseau de
+neurones.
+
+Il faut tout de même noter que les résultats obtenus sont fortement
+sensible au hypeparamètres. Pour améliorer l'algorithme, il faudrait
+intégrer une phase de sélection de modèle pour :
+
+\begin{itemize}
+    \item fixer la taille minimale de la population de paramètre $\theta$ en fonction
+          de la structure du modèle.
+    \item fixer la proportion de population gardée à chaque itération $P_0$
+    \item fixer le nombre d'itérations maximales $l_{max}$
+    \item proposer une bonne distribution a priori de $\theta$ \cite{Andrieu2003} (sachant que ce choix
+          peut faire la différence entre converger ou pas, pour un a priori gaussien, estimer
+          le bon $\sigma_0$)
+\end{itemize}
+
+Pour pousser encore plus loin, il faudrait pouvoir adaptativement, changer la fonction
+de proposition pour l'algorithme MCMC \cite{Andrieu2003,Chiachio2014}(pour le cas gaussien, fixer $\sigma_j$ adapativement).
+
+L'ensemble des réalisations sont disponibles sur ce lien github \cite{githubLink}.
+
 \pagebreak
 \bibliographystyle{plain}
 \bibliography{rapport.bib}

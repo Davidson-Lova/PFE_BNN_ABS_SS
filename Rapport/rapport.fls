@@ -1180,6 +1180,7 @@ INPUT rapport.aux
 INPUT ./rapport.out
 INPUT ./rapport.out
 INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc
+INPUT /home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm8.600pk
 INPUT /home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
