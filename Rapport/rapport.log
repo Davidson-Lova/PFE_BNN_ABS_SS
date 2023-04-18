@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  18 APR 2023 09:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  18 APR 2023 10:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -796,81 +796,86 @@ File: ../plots/SinPlot.png Graphic file (type png)
 <use ../plots/SinPlot.png>
 Package pdftex.def Info: ../plots/SinPlot.png  used on input line 508.
 (pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
-<../plots/plotSinRes2-12-04-2023_10-48-11.png, id=249, 462.528pt x 346.896pt>
-File: ../plots/plotSinRes2-12-04-2023_10-48-11.png Graphic file (type png)
-<use ../plots/plotSinRes2-12-04-2023_10-48-11.png>
-Package pdftex.def Info: ../plots/plotSinRes2-12-04-2023_10-48-11.png  used on input line 509.
-(pdftex.def)             Requested size: 212.91577pt x 159.69054pt.
-<../plots/plotWeightSin2-12-04-2023_10-48-11--151.png, id=250, 462.528pt x 346.896pt>
-File: ../plots/plotWeightSin2-12-04-2023_10-48-11--151.png Graphic file (type png)
-<use ../plots/plotWeightSin2-12-04-2023_10-48-11--151.png>
-Package pdftex.def Info: ../plots/plotWeightSin2-12-04-2023_10-48-11--151.png  used on input line 515.
-(pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
-<../plots/plotWeightSin2-12-04-2023_10-48-11--154.png, id=251, 462.528pt x 346.896pt>
-File: ../plots/plotWeightSin2-12-04-2023_10-48-11--154.png Graphic file (type png)
-<use ../plots/plotWeightSin2-12-04-2023_10-48-11--154.png>
-Package pdftex.def Info: ../plots/plotWeightSin2-12-04-2023_10-48-11--154.png  used on input line 516.
-(pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
-<../plots/plotWeightSin2-12-04-2023_10-48-11--268.png, id=252, 462.528pt x 346.896pt>
-File: ../plots/plotWeightSin2-12-04-2023_10-48-11--268.png Graphic file (type png)
-<use ../plots/plotWeightSin2-12-04-2023_10-48-11--268.png>
-Package pdftex.def Info: ../plots/plotWeightSin2-12-04-2023_10-48-11--268.png  used on input line 517.
-(pdftex.def)             Requested size: 133.07489pt x 99.80856pt.
-<../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png, id=253, 433.62pt x 433.62pt>
-File: ../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png Graphic file (type png)
-<use ../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png>
-Package pdftex.def Info: ../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png  used on input line 525.
-(pdftex.def)             Requested size: 266.14978pt x 266.16194pt.
- [13 <./FNN/Images/fnnSin/fnnSin_page-0001.jpg> <../plots/SinPlot.png> <../plots/plotSinRes2-12-04-2023_10-48-11.png> <../plots/plotWeightSin2-12-04-2023_10-48-11--151.png> <../plots/plotWeightSin2-12-04-2023_10-48-11--154.png> <../plots/plotWeightSin2-12-04-2023_10-48-11--268.png>]
-<../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png, id=272, 462.528pt x 346.896pt>
-File: ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png Graphic file (type png)
-<use ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png>
-Package pdftex.def Info: ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png  used on input line 535.
-(pdftex.def)             Requested size: 354.86412pt x 266.16325pt.
- [14 <../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png> <../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png>]
+<../plots/SinusTube.png, id=249, 408.3255pt x 302.0886pt>
+File: ../plots/SinusTube.png Graphic file (type png)
+<use ../plots/SinusTube.png>
+Package pdftex.def Info: ../plots/SinusTube.png  used on input line 509.
+(pdftex.def)             Requested size: 212.91577pt x 157.52025pt.
+<../plots/wDistSin0.png, id=250, 404.712pt x 302.0886pt>
+File: ../plots/wDistSin0.png Graphic file (type png)
+<use ../plots/wDistSin0.png>
+Package pdftex.def Info: ../plots/wDistSin0.png  used on input line 515.
+(pdftex.def)             Requested size: 133.07489pt x 99.32999pt.
+<../plots/wDistSin1.png, id=251, 404.712pt x 298.4751pt>
+File: ../plots/wDistSin1.png Graphic file (type png)
+<use ../plots/wDistSin1.png>
+Package pdftex.def Info: ../plots/wDistSin1.png  used on input line 516.
+(pdftex.def)             Requested size: 133.07489pt x 98.14185pt.
+<../plots/wDistSin2.png, id=252, 404.712pt x 299.9205pt>
+File: ../plots/wDistSin2.png Graphic file (type png)
+<use ../plots/wDistSin2.png>
+Package pdftex.def Info: ../plots/wDistSin2.png  used on input line 517.
+(pdftex.def)             Requested size: 133.07489pt x 98.6171pt.
+<../plots/wDistSink.png, id=253, 424.9476pt x 426.393pt>
+File: ../plots/wDistSink.png Graphic file (type png)
+<use ../plots/wDistSink.png>
+Package pdftex.def Info: ../plots/wDistSink.png  used on input line 525.
+(pdftex.def)             Requested size: 266.14978pt x 267.0545pt.
+ [13 <./FNN/Images/fnnSin/fnnSin_page-0001.jpg> <../plots/SinPlot.png> <../plots/SinusTube.png> <../plots/wDistSin0.png> <../plots/wDistSin1.png> <../plots/wDistSin2.png>]
+<../plots/outputUQSin.png, id=272, 404.712pt x 298.4751pt>
+File: ../plots/outputUQSin.png Graphic file (type png)
+<use ../plots/outputUQSin.png>
+Package pdftex.def Info: ../plots/outputUQSin.png  used on input line 535.
+(pdftex.def)             Requested size: 354.86412pt x 261.72525pt.
+ [14 <../plots/wDistSink.png> <../plots/outputUQSin.png>]
 <../plots/RegLin.png, id=281, 394.5942pt x 298.4751pt>
 File: ../plots/RegLin.png Graphic file (type png)
 <use ../plots/RegLin.png>
-Package pdftex.def Info: ../plots/RegLin.png  used on input line 573.
+Package pdftex.def Info: ../plots/RegLin.png  used on input line 572.
 (pdftex.def)             Requested size: 310.50357pt x 234.88187pt.
-<../plots/ErrorRegLin.png, id=283, 398.2077pt x 298.4751pt>
-File: ../plots/ErrorRegLin.png Graphic file (type png)
-<use ../plots/ErrorRegLin.png>
-Package pdftex.def Info: ../plots/ErrorRegLin.png  used on input line 591.
+<../plots/TempErreurRegLin.png, id=283, 398.2077pt x 298.4751pt>
+File: ../plots/TempErreurRegLin.png Graphic file (type png)
+<use ../plots/TempErreurRegLin.png>
+Package pdftex.def Info: ../plots/TempErreurRegLin.png  used on input line 587.
 (pdftex.def)             Requested size: 212.91577pt x 159.58923pt.
-<../plots/TubeRegLin.png, id=284, 394.5942pt x 298.4751pt>
-File: ../plots/TubeRegLin.png Graphic file (type png)
-<use ../plots/TubeRegLin.png>
-Package pdftex.def Info: ../plots/TubeRegLin.png  used on input line 592.
+<../plots/TempTubeRegLin.png, id=284, 394.5942pt x 298.4751pt>
+File: ../plots/TempTubeRegLin.png Graphic file (type png)
+<use ../plots/TempTubeRegLin.png>
+Package pdftex.def Info: ../plots/TempTubeRegLin.png  used on input line 588.
 (pdftex.def)             Requested size: 212.91577pt x 161.05573pt.
  [15 <../plots/RegLin.png>]
-<../plots/ErrorRegNN.png, id=292, 398.2077pt x 298.4751pt>
-File: ../plots/ErrorRegNN.png Graphic file (type png)
-<use ../plots/ErrorRegNN.png>
-Package pdftex.def Info: ../plots/ErrorRegNN.png  used on input line 610.
+<FNN/Images/fnnTemp.jpg, id=292, 211.7511pt x 177.3024pt>
+File: FNN/Images/fnnTemp.jpg Graphic file (type jpg)
+<use FNN/Images/fnnTemp.jpg>
+Package pdftex.def Info: FNN/Images/fnnTemp.jpg  used on input line 597.
+(pdftex.def)             Requested size: 133.07489pt x 111.42513pt.
+<../plots/TempErreurFNN.png, id=293, 398.2077pt x 298.4751pt>
+File: ../plots/TempErreurFNN.png Graphic file (type png)
+<use ../plots/TempErreurFNN.png>
+Package pdftex.def Info: ../plots/TempErreurFNN.png  used on input line 610.
 (pdftex.def)             Requested size: 212.91577pt x 159.58923pt.
-<../plots/TubeNN.png, id=293, 394.5942pt x 298.4751pt>
-File: ../plots/TubeNN.png Graphic file (type png)
-<use ../plots/TubeNN.png>
-Package pdftex.def Info: ../plots/TubeNN.png  used on input line 611.
-(pdftex.def)             Requested size: 212.91577pt x 161.05573pt.
- [16 <../plots/ErrorRegLin.png> <../plots/TubeRegLin.png> <../plots/ErrorRegNN.png> <../plots/TubeNN.png>] (./rapport.bbl [17]) [18] (./rapport.aux)
+<../plots/TempTubeFNN.png, id=294, 394.5942pt x 302.0886pt>
+File: ../plots/TempTubeFNN.png Graphic file (type png)
+<use ../plots/TempTubeFNN.png>
+Package pdftex.def Info: ../plots/TempTubeFNN.png  used on input line 611.
+(pdftex.def)             Requested size: 212.91577pt x 163.00555pt.
+ [16 <../plots/TempErreurRegLin.png> <../plots/TempTubeRegLin.png> <./FNN/Images/fnnTemp.jpg> <../plots/TempErreurFNN.png> <../plots/TempTubeFNN.png>] (./rapport.bbl [17]) [18] (./rapport.aux)
 Package rerunfilecheck Info: File `rapport.out' has not changed.
 (rerunfilecheck)             Checksum: 9B6AA1BCB76711F26BF5A864E14C8A81;3745.
  ) 
 Here is how much of TeX's memory you used:
- 26672 strings out of 478287
- 488911 string characters out of 5849288
+ 26681 strings out of 478287
+ 487887 string characters out of 5849288
  793630 words of memory out of 5000000
- 44317 multiletter control sequences out of 15000+600000
+ 44323 multiletter control sequences out of 15000+600000
  489367 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,15n,89p,490b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on rapport.pdf (18 pages, 1956525 bytes).
+Output written on rapport.pdf (18 pages, 2120350 bytes).
 PDF statistics:
- 440 PDF objects out of 1000 (max. 8388607)
- 328 compressed objects within 4 object streams
- 78 named destinations out of 1000 (max. 500000)
- 297 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 443 PDF objects out of 1000 (max. 8388607)
+ 330 compressed objects within 4 object streams
+ 79 named destinations out of 1000 (max. 500000)
+ 302 words of extra memory for PDF output out of 10000 (max. 10000000)
 
