@@ -536,20 +536,58 @@ choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\tex
     \caption{Distribution sur la sortie pour $x \approx 0$ dans le domaine et et $x \approx 0.8$ hors du domaine}
 \end{figure}
 
-\subsection{Maybe more}
+\subsection{Application}
 
-Insert im here
+On utilise ici les données du vol 0 du jeux de données "Aircraft\_01.h5".
 
-list hypperametters
+On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des variables
 
-Insert res here
+\begin{itemize}
+    \item N1\_1 [\% rpm] (une description ici)
+    \item T1\_1 [deg C] (une description ici)
+    \item ALT [ft] (une description ici)
+    \item M [Mach] (une description ici)
+\end{itemize}
 
+On essaie d'abord de faire une regression linéaire i.e. : 
+
+$$\forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} + \epsilon_i \Leftrightarrow y = X a + \epsilon$$
+
+\begin{itemize}
+    \item $y_i$ la $i$-ème composante du vecteur de sortie,
+    \item $X_{i,p}$ la $i$-ème composante de la $p$-ème covariable,
+    \item $\epsilon_i$ le bruit.
+\end{itemize}
+
+
+avec $X = \begin{pmatrix} 1 & X_{1, 1} & X_{1, 2} & X_{1, 3} & X_{1, 4}\\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    1 & X_{n, 1} & X_{n, 2} & X_{n, 3} & X_{n, 4}
+\end{pmatrix} $, $a = (a_0,..., a_4)^T$ et $\epsilon = (\epsilon_1,..., \epsilon_n)^T$
+
+Le paramètre $\hat{a}$ qui minimise l'erreur quadratique moyenne est $\hat{a} = (X^T X)^{-1} X^T y$
+et on pose $\hat{y} = X \hat{a}$.
+
+insert figure linear regression
+
+Maintenant on utilise l'algorithm BNN-ABC-SS avec un modèle linéaire.
+
+Les paramètres de l'algorithme (inster paramlist here).
+
+insert fig result 
+
+insert fig error
+
+Ensuite on utilise un réseau de neurones à une couche cachée composée de 2 neurones.
+
+insert fig result
+
+insert fig error
 
 \pagebreak
 \section{Conclusion et perspective}
-On a vu ici l'implémentation d'une méthode d'approximation sur l'incertitude
-sur la sortie qui poura être utilisée par la suite dans ....
-
+On a vu ici l'implémentation d'une méthode d'approximation 
+sur l'incertitude sur la sortie. Ici mets les impressions que tu as eu.
 \pagebreak
 \bibliographystyle{plain}
 \bibliography{rapport.bib}

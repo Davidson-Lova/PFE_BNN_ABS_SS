@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  13 APR 2023 08:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.12)  17 APR 2023 14:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -827,9 +827,9 @@ File: ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png Graphi
 <use ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png>
 Package pdftex.def Info: ../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png  used on input line 535.
 (pdftex.def)             Requested size: 354.86412pt x 266.16325pt.
- [14 <../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png> <../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png>] [15] [16] (./rapport.bbl) [17] (./rapport.aux)
+ [14 <../plots/plotWeigthJointSin2-12-04-2023_10-48-11--0&47.png> <../plots/plotIncertitudeSortieSin2-12-04-2023_10-48-11--249&329.png>] [15] (./rapport.bbl [16]) [17] (./rapport.aux)
 Package rerunfilecheck Info: File `rapport.out' has not changed.
-(rerunfilecheck)             Checksum: 3B40049260C942E7F53F7B8A97DC3308;3743.
+(rerunfilecheck)             Checksum: 9B6AA1BCB76711F26BF5A864E14C8A81;3745.
  ) 
 Here is how much of TeX's memory you used:
  26629 strings out of 478287
@@ -840,7 +840,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  84i,15n,89p,490b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/davidson/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on rapport.pdf (17 pages, 1820756 bytes).
+Output written on rapport.pdf (17 pages, 1824897 bytes).
 PDF statistics:
  415 PDF objects out of 1000 (max. 8388607)
  315 compressed objects within 4 object streams

@@ -119,8 +119,8 @@ class FNN(nn.Module):
         """
         for i in range(self.nbLayers - 2):
             x = self.funclist[i](x)
-            # x = torch.tanh(x)
-            x = torch.relu(x)
+            x = torch.tanh(x)
+            # x = torch.relu(x)
         x = self.funclist[self.nbLayers - 2](x)
         return x
 
