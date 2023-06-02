@@ -4,6 +4,7 @@
 \usepackage{subfigure}
 \usepackage{float}
 \usepackage{tikz}
+\usepackage{multirow}
 \usetikzlibrary{positioning}
 
 % Set page size and margins
@@ -19,6 +20,17 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{bbm}
 \usepackage{amsfonts}
 \usepackage{graphicx}
+
+\let\oldsection\section% Store \section
+\renewcommand{\section}{% Update \section
+  \renewcommand{\theequation}{\thesection.\arabic{equation}}% Update equation number
+  \oldsection}% Regular \section
+\let\oldsubsection\subsection% Store \subsection
+\renewcommand{\subsection}{% Update \subsection
+  \renewcommand{\theequation}{\thesubsection.\arabic{equation}}% Update equation number
+  \oldsubsection}% Regular \subsection
+
+  
 % \usepackage{algpseudocode}
 % \usepackage{algorithm}
 \usepackage[ruled, lined]{algorithm2e}
@@ -26,7 +38,6 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 
 % Langue
 % \usepackage[french]{babel}
-\usepackage{babel}
 \usepackage[T1]{fontenc}
 
 % Redirection avec la table des matières
@@ -126,7 +137,9 @@ différente de $\sigma$ (par exemple l'identité pour la régression et softmax 
 
 On modélise le réseau de neurones \href{https://en.wikipedia.org/wiki/Feedforward_neural_network}{\textit{feedforward}} comme la fonction non linéaire
 
-$$f : (x, \theta) \in \mathcal{X} \times \Theta \mapsto f(x, \theta) \in \mathcal{Y}$$
+\begin{equation}
+    f : (x, \theta) \in \mathcal{X} \times \Theta \mapsto f(x, \theta) \in \mathcal{Y}  
+\end{equation}
 
 où
 
@@ -167,7 +180,9 @@ On a $\theta | D,s \sim p_{\theta | D, s}$
 La prédiction faite à partir d'un réseau entrainé subit alors les incertitudes venant
 de ces sources. La distribution de la prédiction $y^*$ sachant une entrée $x^*$ est donné par
 
-$$ p(y^* | x^*, D) = \int_{\Theta} \underbrace{p(y^* | x^*, \theta)}_{\text{Données}} \underbrace{p(\theta  | D)}_{\text{Modèle}} d \theta$$
+\begin{equation}
+    p(y^* | x^*, D) = \int_{\Theta} \underbrace{p(y^* | x^*, \theta)}_{\text{Données}} \underbrace{p(\theta  | D)}_{\text{Modèle}} d \theta 
+\end{equation}
 
 \subsubsection{Incertitude aléatoire}
 
@@ -223,21 +238,22 @@ Parmis ces méthodes on trouve :
 
 \subsection{Méthodes variationnelles}
 
-Ici on approche $p(\theta | D)$ par une famille de distribution
-paramétrique $\{q^{\gamma}(\theta)\}_{\gamma}$ (souvent des gaussiennes).
-Le but est de choisir $\gamma$ qui rapproche $q^{\gamma}(\theta)$
+On approche $p(\theta | D)$ en choisissant une distribution parmi une famille de distributions
+paramétrées $\{q^{\gamma}(\theta)\}_{\gamma}$ (souvent des gaussiennes).
+Le but est de choisir la distribution $q^{\gamma}(\theta)$ qui se rapproche 
 le plus de $p(\theta | D)$ au sens de la divergence de Kullback-Leibler :
 
-$$KL(q||p) = \mathbb{E}_q \left[\log \frac{q^{\gamma}(\theta)}{p(\theta | D)}\right]$$
+\begin{equation}
+    KL(q^{\gamma}||p) = \mathbb{E}_q \left[\log \frac{q^{\gamma}(\theta)}{p(\theta | D)}\right]  
+\end{equation}
 
-Comme on ne connaît pas $p(\theta | D)$, on utilise l'ELBO (\textit{evidence lower bound})
-qui est égal à la divergence à une constante près
+Comme une distribution est determinée par leur paramètre, le choix de la distribution  optimale $q^*$
+est réduit au choix du paramètre optimal $\gamma^*$.
 
-$$L =\mathbb{E}_q \left[\log \frac{p(y | D, \theta)}{q^{\gamma}(\theta)}\right]$$
+\begin{equation}
+    \gamma^* = \arg \min_{\gamma \in \Gamma} KL(q^{\gamma}||p) 
+\end{equation}
 
-(on a en effet $KL(q||p) = -L +  \log p(y| D)$)
-
-On résout ici un problème d'optimisation.
 
 \subsection{Méthode de Laplace}
 
@@ -265,14 +281,26 @@ $$p(\theta | D) = \frac{p(D | \theta) }{p(D)}p(\theta)$$
     \item $p(D)$ la distribution des données d'entrainement.
 \end{itemize}
 
-Il s'agit de faire des tirages de $\theta$ pour évaluer ces quantités en utilisant Monte Carlo ou
-encore MCMC \cite{Uncertainty_Deep}.
+
+Si on arrive à evaluer la vraisemblance, et comme $p(\theta | D) \propto p(D | \theta) p(\theta)$, 
+on peut tracer une chaine de Markov qui simulent des échantillons de $p(\theta | D)$ en utilisant
+la vraisemblance et la distribution a priori. Un algorithme qui permet de générer
+cette chaine de Markov est par exemple l'algorithme de Metropolis Hastings \cite{Uncertainty_Deep}.
+
+Après avoir générer des échantillions $p(\theta | D)$, on estime $p(\theta | D)$ à l'aide de ces 
+échantillions.
+
+
+
+
 
 \pagebreak
 
 \section{Algorithme BNN-ABC-SS}
 
 \subsection{ABC (\href{https://en.wikipedia.org/wiki/Approximate_Bayesian_computation}{\textit{Approximate Bayesian Computation}})}
+
+On se donne une donnée $D = (x, y)$.
 
 La méthode ABC consiste à évaluer $p(\theta | D)$ sans évaluer
 la vraisemblance qui peut s'avérer couteux.
@@ -282,8 +310,10 @@ réseaux de neurones $f$ avec paramètre $\theta$.
 
 La formule de Bayes nous donne
 
-$$ p(\theta, \hat{y} | D) \propto p(D | \hat{y}, \theta) p(\hat{y} | \theta)
-    p(\theta)$$
+\begin{equation}
+    p(\theta, \hat{y} | D) \propto p(D | \hat{y}, \theta) p(\hat{y} | \theta)
+    p(\theta) 
+\end{equation}
 
 Pour simuler selon la distribution du second membre, on applique
 l'algorithme de rejet.
@@ -307,10 +337,15 @@ et donc le mieux notre approximation sera.
 On note $p_{\epsilon} (\theta, \hat{y} | D)$ la distribution issue
 du tirage précédent, et qui approche $p(\theta, \hat{y} |D)$, on a
 
-$$p_{\epsilon} (\theta , \hat{y} | D) \propto \mathbbm{1}_{\mathcal{N}_{\epsilon}(D)} (\hat{y}) p(\hat{y} | \theta)
-    p(\theta) $$
+\begin{equation}
+    p_{\epsilon} (\theta , \hat{y} | D) \propto \mathbbm{1}_{\mathcal{N}_{\epsilon}(D)} (\hat{y}) p(\hat{y} | \theta)
+    p(\theta)  
+\end{equation}
 
-où $$\mathcal{N}_{\epsilon}(D) = \{\hat{y} \in \mathcal{Y}, \rho(\eta(\hat{y}), \eta(y)) \leq \epsilon\}$$
+où 
+\begin{equation}
+    \mathcal{N}_{\epsilon}(D) = \{\hat{y} \in \mathcal{Y}, \rho(\eta(\hat{y}), \eta(y)) \leq \epsilon\}  
+\end{equation}
 
 
 où $\eta$ est une statistique qui caractérise une distribution
@@ -318,9 +353,12 @@ où $\eta$ est une statistique qui caractérise une distribution
 
 En intégrant des deux côtés par $\hat{y}$ on obtient notre approximation de $p(\theta | D)$
 
-$$p_{\epsilon}( \theta | D) = \int_{\mathcal{Y}} p_{\epsilon}( \theta , \hat{y}| D) d \hat{y} \propto \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y}) p( \hat{y}| \theta) p( \theta) d \hat{y}$$
 
-$$ = p( \theta) \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y})  p( \hat{y}| \theta) d \hat{y} = \mathbb{P} (\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta) p( \theta)$$
+\begin{align}
+    p_{\epsilon}( \theta | D) = \int_{\mathcal{Y}} p_{\epsilon}( \theta , \hat{y}| D) d \hat{y} \propto \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y}) p( \hat{y}| \theta) p( \theta) d \hat{y}  \\
+    = p( \theta) \int_{\mathcal{Y}} \mathbb{I}_{\mathcal{N}_\epsilon (D)} (\hat{y})  p( \hat{y}| \theta) d \hat{y} = \mathbb{P} (\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta) p( \theta) 
+\end{align}
+
 
 Cependant lors de l'algorithme de rejet, tirer les $\theta$ de manière générique donne trop rarement des $\hat{y}$ qui tombent dans $\mathcal{N}_{\epsilon} (D)$
 ce qui fait que l'approximation est prend beaucoup de temps à converger. On utilise alors SS (Subset Simulation)
@@ -335,10 +373,11 @@ Il est clair que $\mathcal{N}_{\epsilon_m} (D)\subset \mathcal{N}_{\epsilon_{m -
 
 De plus et en conséquence, $\bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} = \mathcal{N}_{\epsilon_m} = \mathcal{N}_{\epsilon} $, ce qui nous donne
 
-$$ \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta \right) = \mathbb{P} \left(\hat{y} \in \bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} (D)| \theta\right)$$
-
-$$= \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_1} (D)| \theta\right)
-    \prod_{j = 2}^{m} \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_j} (D)|\hat{y} \in \mathcal{N}_{\epsilon_{j - 1}} (D), \theta\right)$$
+\begin{align}
+    \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon} (D)| \theta \right) = \mathbb{P} \left(\hat{y} \in \bigcap_{j = 1}^m \mathcal{N}_{\epsilon_j} (D)| \theta\right) \\
+    = \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_1} (D)| \theta\right)
+    \prod_{j = 2}^{m} \mathbb{P} \left(\hat{y} \in \mathcal{N}_{\epsilon_j} (D)|\hat{y} \in \mathcal{N}_{\epsilon_{j - 1}} (D), \theta\right)
+\end{align}
 
 
 L'idée de la SS, est de faire des tirages itératifs de plus en plus fins.
@@ -552,7 +591,9 @@ On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des var
 
 On essaie d'abord de faire une régression linéaire i.e. :
 
-$$\forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} + \epsilon_i \Leftrightarrow y = X a + \epsilon$$
+\begin{equation}
+    \forall i, y_i = a_0 + a_1 X_{i, 1}+ a_2 X_{i, 2}+ a_3 X_{i, 3}+ a_4 X_{i, 4} + \epsilon_i \Leftrightarrow y = X a + \epsilon  
+\end{equation}
 
 \begin{itemize}
     \item $y_i$ la $i$-ème composante du vecteur de sortie,
