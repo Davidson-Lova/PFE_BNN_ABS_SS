@@ -1,4 +1,4 @@
-# Titre de votre projet 
+<!-- # Titre de votre projet 
 
 Description du projet
 * programme moteur
@@ -83,4 +83,4 @@ Préciser si vous avez utilisé des outils externes à votre projet :
 ## Membres du projet
  
 préciser les personnes qui ont réalisé le projet ainsi que les personnes avec qui vous avez été en interface
- 
+  -->
