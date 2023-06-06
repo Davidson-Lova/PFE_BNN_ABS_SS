@@ -1,1 +1,0 @@
-{"N": 20000, "lmax": 14, "P0": 0.1, "epsilon": 0.1, "sigma_0": 1.5, "structure": [1, 15, 15, 1], "pdist": 2}

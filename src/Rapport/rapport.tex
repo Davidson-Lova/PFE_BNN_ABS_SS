@@ -287,8 +287,8 @@ on peut tracer une chaine de Markov qui simulent des échantillons de $p(\theta 
 la vraisemblance et la distribution a priori. Un algorithme qui permet de générer
 cette chaine de Markov est par exemple l'algorithme de Metropolis Hastings \cite{Uncertainty_Deep}.
 
-Après avoir générer des échantillions $p(\theta | D)$, on estime $p(\theta | D)$ à l'aide de ces 
-échantillions.
+Après avoir générer des échantillons $p(\theta | D)$, on estime $p(\theta | D)$ à l'aide de ces 
+échantillons.
 
 
 
@@ -654,6 +654,45 @@ la mesure de dissimilarité choisie est l'erreur quadratique moyenne.
     \caption{Résultat de BNN-ABC-SS pour le réseau de neurones}
 \end{figure}
 
+Maintenant qu'on a vu qu'on peut appliquées le modèle de cette manière, on va essayer de faire une inférence.
+On se donne une base de données 10 vols qu'on normalise pour ramener les valeurs dans $[0,1]$,
+% Manuelement
+et on la sépare en 2 échantillons, un d'entrainement et un de test.
+
+On entraine le modèle (linéaire ensuite le réseau de neurone) sur l'échantillon d'entrainement. 
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Modèle linéaire]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/errorRateLin.png}}
+    \subfigure[listentry][réseau de neurones]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/errorRateNet.png}}
+    \caption{}
+\end{figure}
+
+
+On obtient alors un modèle moyen (global) sur l'échantillon d'entrainement
+qu'on évalue pour chaque vol dans ce même échantillion et ensuite pour ceux 
+de test.
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Entrainement]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/trainErrorLin.png}}
+    \subfigure[listentry][Test]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/testErrorLin.png}}
+    \caption{Erreur MSE pour chaque vol pour le modèle linéaire}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Entrainement]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/trainErrorNet.png}}
+    \subfigure[listentry][Test]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/testErrorNet.png}}
+    \caption{Erreur MSE pour chaque vol pour le réseau de neurones}
+\end{figure}
+
+% Insert comments here
+
+
+
+
+
 \pagebreak
 \section{Conclusion et perspective}
 Ce travail nous a permis d'implementer un algorithme qui tente d'intégrer
@@ -678,6 +717,8 @@ Pour pousser encore plus loin, il faudrait pouvoir adaptativement, changer la fo
 de proposition pour l'algorithme MCMC \cite{Andrieu2003,Chiachio2014}(pour le cas gaussien, fixer $\sigma_j$ adapativement).
 
 L'ensemble des réalisations sont disponibles sur ce lien github \cite{githubLink}.
+
+
 
 \pagebreak
 \bibliographystyle{plain}
