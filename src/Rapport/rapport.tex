@@ -20,6 +20,8 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{bbm}
 \usepackage{amsfonts}
 \usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{eso-pic}
 
 \let\oldsection\section% Store \section
 \renewcommand{\section}{% Update \section
@@ -79,14 +81,61 @@ right=3cm,marginparwidth=1.75cm]{geometry}
 
 \lstset{style=mystyle}
 
-\title{PFE}
-\author{Khaled MEDJKOUH \\ Davidson Lova RAZAFINDRAKOTO}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\blap}[1]{\vbox to 0pt{#1\vss}}
 
+\newcommand\AtUpperLeftCorner[3]{%
+  \put(\LenToUnit{#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{#3}}%
+}
+\newcommand\AtUpperRightCorner[3]{%
+  \put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{\llap{#3}}}%
+}
+ 
+\title{\LARGE{Projet de fin d'études}}
+\author{\textsc{MEDJKOUH} Khaled\\ \textsc{RAZAFINDRAKOTO} Davidson Lova \\Année universitaire 2022/2023}
+
+\date{\today}
+\makeatletter
+ 
 \begin{document}
+ 
+\begin{titlepage}
+    \enlargethispage{2cm}
+ 
+    \AddToShipoutPicture{
+        \AtUpperLeftCorner{1.5cm}{1cm}{\includegraphics[width=5cm]{../../data/processed/safranLogo.png}}
+        
+        \AtUpperRightCorner{1.5cm}{1cm}{\includegraphics[width=4cm]{../../data/processed/LogoUSPN.png}}
+    }
+    \begin{center}
+        \makebox[\textwidth]{\includegraphics[width=0.35\textwidth]{../../data/processed/logosupGaliee.png}}
+    \end{center}
+ 
+    \begin{center}
+        \vspace*{7cm}
+ 
+        \textsc{\@title}
+        \HRule
+        \vspace*{0.5cm}
+ 
+        \large{\@author} 
+    \end{center}
+ 
+    \vspace*{7.2cm}
+ 
+    Enseignant :
+    \begin{itemize}
+        \item LACAILLE Jérôme 
+    \end{itemize}
 
-\maketitle
+\end{titlepage}
 
-\pagebreak
+
+
+
+\ClearShipoutPicture
+
+
 
 \tableofcontents
 
@@ -203,7 +252,7 @@ elle est due :
 
 \pagebreak
 
-\section{Réseau de neurones bayésiens (BNN)}
+\section{Réseau de neurones bayésien (BNN)}
 
 % + Présentation de réseaux de neurones bayésiens
 
@@ -580,13 +629,13 @@ choisie est la MSE (\href{https://en.wikipedia.org/wiki/Mean_squared_error}{\tex
 
 On utilise ici les données du vol 0 du jeu de données "Aircraft\_01.h5".
 
-On souhaite prédire le N2\_1 [\% rpm] (une description ici) en fonction des variables
+On souhaite prédire le N2\_1 [\% rpm] en fonction des variables
 
 \begin{itemize}
-    \item N1\_1 [\% rpm] (une description ici)
-    \item T1\_1 [deg C] (une description ici)
-    \item ALT [ft] (une description ici)
-    \item M [Mach] (une description ici)
+    \item N1\_1 [\% rpm]
+    \item T1\_1 [deg C]
+    \item ALT [ft]
+    \item M [Mach]
 \end{itemize}
 
 On essaie d'abord de faire une régression linéaire i.e. :
@@ -611,7 +660,7 @@ et on pose $\hat{y} = X \hat{a}$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[width = 0.7\textwidth]{../plots/RegLin.png}
+    \includegraphics*[width = 0.7\textwidth]{../../data/processed/regLin.png}
     \caption{Résultat de la régression linéaire}
 \end{figure}
 
@@ -626,8 +675,8 @@ la mesure de dissimilarité choisie est l'erreur quadratique moyenne (MSE).
 
 \begin{figure}[H]
     \centering
-    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/TempErreurRegLin.png}}
-    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TempTubeRegLin.png}}
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/errorRateRotLin.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/linearReg.png}}
     \caption{Résultat de BNN-ABC-SS pour le modèle linéaire}
 \end{figure}
 
@@ -649,8 +698,8 @@ la mesure de dissimilarité choisie est l'erreur quadratique moyenne.
 
 \begin{figure}[H]
     \centering
-    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../plots/TempErreurFNN.png}}
-    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../plots/TempTubeFNN.png}}
+    \subfigure[listentry][Courbe d'évolution des erreurs]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/errorRateRotNet.png}}
+    \subfigure[listentry][Tube]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/netReg.png}}
     \caption{Résultat de BNN-ABC-SS pour le réseau de neurones}
 \end{figure}
 
@@ -670,7 +719,7 @@ On entraine le modèle (linéaire ensuite le réseau de neurone) sur l'échantil
 
 
 On obtient alors un modèle moyen (global) sur l'échantillon d'entrainement
-qu'on évalue pour chaque vol dans ce même échantillion et ensuite pour ceux 
+qu'on évalue pour chaque vol dans ce même échantillon et ensuite pour ceux 
 de test.
 
 \begin{figure}[H]
@@ -687,7 +736,23 @@ de test.
     \caption{Erreur MSE pour chaque vol pour le réseau de neurones}
 \end{figure}
 
-% Insert comments here
+% Insert comments
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Modèle linéaire]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/Linfligh973.png}}
+    \subfigure[listentry][Réseau de neurones]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/netFlight973.png}}
+    \caption{Une application sur un vol de l'échantillon d'entrainement}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Modèle linéaire]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/linFlight665.png}}
+    \subfigure[listentry][Réseau de neurones]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/netFlight665.png}}
+    \caption{Une application sur un vol de l'échantillon de test}
+\end{figure}
+
+
 
 
 
@@ -723,5 +788,66 @@ L'ensemble des réalisations sont disponibles sur ce lien github \cite{githubLin
 \pagebreak
 \bibliographystyle{plain}
 \bibliography{rapport.bib}
+
+\pagebreak
+\appendix
+
+\section*{\textit{Modified Monte Carlo}}
+
+Cette méthode traite le problème précendent on proposant avec une distribution $q$, composante par 
+composante (au lieu de proposer avec une distribution sur tout le vecteur), 
+ensuite après la phase acceptation/rejet, on regarde si le vecteur est dans la region souhaitée.
+
+Si on se donne un vecteur initial $\theta^{(n-1)} \in D$ et qu'on souhaite calcul le prochain $\theta^{(n)} \in D$.
+On se munit d'une distribution de proposition 1D, $q$, et d'un distribution a priori 
+$p$ aussi 1D pour les composantes de nos $\theta$. On se donne $T$ la temperature à cette instant là.
+
+Pour $i = 1, ..., n_{\theta}$
+
+\begin{itemize}
+    \item on génère  $\theta'_i \sim q( \theta'_i | \theta^{(n-1)}_i)$
+    \item on calcul $P_i = \left\{1, \frac{\exp( - \frac{1}{T} ( - \log p(\theta'_i))) q( \theta^{(n-1)}_i| \theta'_i )}
+    {\exp( - \frac{1}{T} (- \log p (\theta^{(n-1)}_i)))q( \theta'_i|\theta^{(n-1)}_i)}\right\}$ 
+    \item Avec probabilité $P_i$, $\xi_i = \theta'_i$ et avec $1-P_i$, $\xi_i = \theta^{(n-1)}_i$
+\end{itemize}
+
+Maintenant qu'on a obtenu $\xi$. Si $\xi \in D$, $\theta^{(n)} = \xi$ sinon, $\theta^{(n)} = \theta^{(n-1)}$.
+
+L'intérêt de cette méthode est d'augementer le taux d'acceptation car en grande dimension, quand on 
+evalue une densité de probabilité, on obtient des valeurs potentiellement petites ce qui fait
+que la chaine avance trop rarement. Ce qui motive le fait de proposer composante par composante.
+Cependant, il y a potentiellement des informations d'interactions qui sont perdu.
+
+
+
+\section*{Durée de calcul}
+
+On fait tourner pour chaque application 20 fois l'entrainement avec la machine suivante
+
+\begin{itemize}
+    \item Processeur : 12th Gen Intel(R) Core(TM) i7-12800H   2.40 GHz
+    \item Mémoire RAM installée : 32,0 Go (31,7 Go utilisable)
+    \item Type du système : Système déexploitation 64 bits, processeur x64. 
+\end{itemize}
+
+
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Cosinusoïde]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/timingCos.png}}
+    \subfigure[listentry][Sinusoïde]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/timingSin.png}}
+    \caption{Durée de calcul sur 20 entrainements}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[listentry][Modèle linéaire]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/timingLin.png}}
+    \subfigure[listentry][Réseau de neurones]{\includegraphics[width = 0.48 \textwidth]{../../data/processed/timingNet2.png}}
+    \caption{Durée de calcul sur 20 entrainements}
+\end{figure}
+
+
+
+
 
 \end{document}
